@@ -1,10 +1,10 @@
 module OpenX
   module Services
-    class Agency
-      attr_accessor :session, :id
+    class Agency < Base
+      attr_accessor :session
 
       # Translate our property names to OpenX property names
-      TRANSLATIONS = {
+      @translations = {
         'name'          => 'agencyName',
         'contact_name'  => 'contactName',
         'email'         => 'emailAddress',
@@ -13,27 +13,27 @@ module OpenX
         'id'            => 'agencyId',
         'account_id'    => 'accountId',
       }
-      TRANSLATIONS.each_key { |k| attr_accessor :"#{k}" }
-      ENDPOINT = '/AgencyXmlRpcService.php'
+      @translations.each_key { |k| attr_accessor :"#{k}" }
+
+      @endpoint = '/AgencyXmlRpcService.php'
+      @create   = 'addAgency'
+      @update   = 'modifyAgency'
+      @delete   = 'deleteAgency'
 
       class << self
-        def create!(params = {})
-          new(params).save!
-        end
-
         def find(session, id)
-          server    = XMLRPC::Client.new2("#{session.url}#{ENDPOINT}")
+          server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
           if id == :all
             response  = server.call('getAgencyList', session.id)
             response.map { |res|
               params    = {}
-              TRANSLATIONS.each { |k,v| params[k] = res[v] if res[v] }
+              @translations.each { |k,v| params[k] = res[v] if res[v] }
               new(params.merge({:session => session}))
             }
           else
             response  = server.call('getAgency', session.id, id)
             params    = {}
-            TRANSLATIONS.each { |k,v| params[k] = response[v] if response[v] }
+            @translations.each { |k,v| params[k] = response[v] if response[v] }
             new(params.merge({:session => session}))
           end
         end
@@ -43,33 +43,11 @@ module OpenX
         end
       end
 
-      def initialize(params = {})
-        raise unless params[:session]
-        @id = nil
-        params.each { |k,v| send(:"#{k}=", v) }
-        @server = XMLRPC::Client.new2("#{session.url}#{ENDPOINT}")
-      end
-
-      def new_record?; @id.nil?; end
-
-      def destroy
-        @server.call('deleteAgency', session.id, id)
-        @id = nil
-      end
-
-      def save!
-        params = {}
-        TRANSLATIONS.keys.each { |k|
-          value = send(:"#{k}")
-          params[TRANSLATIONS[k]] = value if value
-        }
-        
-        if new_record?
-          @id = @server.call('addAgency', session.id, params)
-        else
-          @server.call('modifyAgency', session.id, params)
-        end
-        self
+      def create_advertiser!(params = {})
+        Advertiser.create!(params.merge({
+          :agency   => self,
+          :session  => session
+        }))
       end
     end
   end
