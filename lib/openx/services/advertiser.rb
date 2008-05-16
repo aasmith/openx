@@ -12,9 +12,11 @@ module OpenX
                      :id            => :advertiserId
 
       self.endpoint = '/AdvertiserXmlRpcService.php'
-      self.create = 'addAdvertiser'
-      self.update = 'modifyAdvertiser'
-      self.delete = 'deleteAdvertiser'
+      self.create   = 'addAdvertiser'
+      self.update   = 'modifyAdvertiser'
+      self.delete   = 'deleteAdvertiser'
+      self.find_one = 'getAdvertiser'
+      self.find_all = 'getAdvertiserListByAgencyId'
 
       def initialize(params = {})
         raise unless params[:agency_id] || params[:agency]

@@ -43,6 +43,36 @@ class AdvertiserTest < Test::Unit::TestCase
     end
   end
 
+  def test_find_advertiser
+    advertiser = nil
+    assert_nothing_raised {
+      advertiser = @agency.create_advertiser!(init_params)
+    }
+    assert_not_nil advertiser
+
+    advertiser = Advertiser.find(@session, advertiser.id)
+    assert_not_nil advertiser
+    init_params.each do |k,v|
+      assert_equal(v, advertiser.send(:"#{k}"))
+    end
+  end
+
+  def test_find_all_advertisers
+    advertiser = nil
+    assert_nothing_raised {
+      advertiser = @agency.create_advertiser!(init_params)
+    }
+    assert_not_nil advertiser
+
+    advertisers = Advertiser.find(@session, :all, @agency.id)
+
+    advertiser = advertisers.find { |a| a.id == advertiser.id }
+    assert_not_nil advertiser
+    init_params.each do |k,v|
+      assert_equal(v, advertiser.send(:"#{k}"))
+    end
+  end
+
   def init_params
     {
       :name         => 'Test advertiser',

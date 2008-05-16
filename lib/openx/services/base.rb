@@ -3,7 +3,7 @@ module OpenX
     class Base
       class << self
         attr_accessor :endpoint, :translations
-        attr_accessor :create, :update, :delete
+        attr_accessor :create, :update, :delete, :find_one, :find_all
 
         def create!(params = {})
           new(params).save!
@@ -15,6 +15,32 @@ module OpenX
           accessor_map.each do |ruby,openx|
             attr_accessor :"#{ruby}"
           end
+        end
+
+        def find(session, id, *args)
+          server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
+          if id == :all
+            responses = server.call(find_all(), session.id, *args)
+            responses.map { |response|
+              new(translate(response).merge({:session => session}))
+            }
+          else
+            response  = server.call(find_one(), session.id, id)
+            new(translate(response).merge({:session => session}))
+          end
+        end
+
+        def destroy(session, id)
+          new({:session => session, :id => id }).destroy
+        end
+
+        private
+        def translate(response)
+          params    = {}
+          self.translations.each { |k,v|
+            params[k] = response[v.to_s] if response[v.to_s]
+          }
+          params
         end
       end
 

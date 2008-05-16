@@ -16,34 +16,8 @@ module OpenX
       self.create   = 'addAgency'
       self.update   = 'modifyAgency'
       self.delete   = 'deleteAgency'
-
-      class << self
-        def find(session, id)
-          server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
-          if id == :all
-            responses = server.call('getAgencyList', session.id)
-            responses.map { |response|
-              new(translate(response).merge({:session => session}))
-            }
-          else
-            response  = server.call('getAgency', session.id, id)
-            new(translate(response).merge({:session => session}))
-          end
-        end
-
-        def destroy(session, id)
-          new({:session => session, :id => id }).destroy
-        end
-
-        private
-        def translate(response)
-          params    = {}
-          self.translations.each { |k,v|
-            params[k] = response[v.to_s] if response[v.to_s]
-          }
-          params
-        end
-      end
+      self.find_one = 'getAgency'
+      self.find_all = 'getAgencyList'
 
       def create_advertiser!(params = {})
         Advertiser.create!(params.merge({
