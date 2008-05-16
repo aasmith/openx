@@ -45,7 +45,7 @@ module OpenX
       end
 
       def initialize(params = {})
-        raise unless params[:session]
+        raise "No session provided" unless params[:session]
         @id = nil
         params.each { |k,v| send(:"#{k}=", v) }
         @server = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
