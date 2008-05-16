@@ -4,42 +4,44 @@ module OpenX
       attr_accessor :session
 
       # Translate our property names to OpenX property names
-      @translations = {
-        'name'          => 'agencyName',
-        'contact_name'  => 'contactName',
-        'email'         => 'emailAddress',
-        'username'      => 'username',
-        'password'      => 'password',
-        'id'            => 'agencyId',
-        'account_id'    => 'accountId',
-      }
-      @translations.each_key { |k| attr_accessor :"#{k}" }
+      openx_accessor  :name          => :agencyName,
+                      :contact_name  => :contactName,
+                      :email         => :emailAddress,
+                      :username      => :username,
+                      :password      => :password,
+                      :id            => :agencyId,
+                      :account_id    => :accountId
 
-      @endpoint = '/AgencyXmlRpcService.php'
-      @create   = 'addAgency'
-      @update   = 'modifyAgency'
-      @delete   = 'deleteAgency'
+      self.endpoint = '/AgencyXmlRpcService.php'
+      self.create   = 'addAgency'
+      self.update   = 'modifyAgency'
+      self.delete   = 'deleteAgency'
 
       class << self
         def find(session, id)
           server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
           if id == :all
-            response  = server.call('getAgencyList', session.id)
-            response.map { |res|
-              params    = {}
-              @translations.each { |k,v| params[k] = res[v] if res[v] }
-              new(params.merge({:session => session}))
+            responses = server.call('getAgencyList', session.id)
+            responses.map { |response|
+              new(translate(response).merge({:session => session}))
             }
           else
             response  = server.call('getAgency', session.id, id)
-            params    = {}
-            @translations.each { |k,v| params[k] = response[v] if response[v] }
-            new(params.merge({:session => session}))
+            new(translate(response).merge({:session => session}))
           end
         end
 
         def destroy(session, id)
           new({:session => session, :id => id }).destroy
+        end
+
+        private
+        def translate(response)
+          params    = {}
+          self.translations.each { |k,v|
+            params[k] = response[v.to_s] if response[v.to_s]
+          }
+          params
         end
       end
 

@@ -3,20 +3,18 @@ module OpenX
     class Advertiser < Base
       attr_accessor :session, :agency
 
-      # Translate our property names to OpenX property names
-      @translations = {
-        'name'          => 'advertiserName',
-        'contact_name'  => 'contactName',
-        'email'         => 'emailAddress',
-        'username'      => 'username',
-        'password'      => 'password',
-        'agency_id'     => 'agencyId',
-      }
-      @translations.each_key { |k| attr_accessor :"#{k}" }
-      @endpoint = '/AdvertiserXmlRpcService.php'
-      @create   = 'addAdvertiser'
-      @update   = 'modifyAdvertiser'
-      @delete   = 'deleteAdvertiser'
+      openx_accessor :name          => :advertiserName,
+                     :contact_name  => :contactName,
+                     :email         => :emailAddress,
+                     :username      => :username,
+                     :password      => :password,
+                     :agency_id     => :agencyId,
+                     :id            => :advertiserId
+
+      self.endpoint = '/AdvertiserXmlRpcService.php'
+      self.create = 'addAdvertiser'
+      self.update = 'modifyAdvertiser'
+      self.delete = 'deleteAdvertiser'
 
       def initialize(params = {})
         raise unless params[:agency_id] || params[:agency]

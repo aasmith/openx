@@ -8,6 +8,14 @@ module OpenX
         def create!(params = {})
           new(params).save!
         end
+
+        def openx_accessor(accessor_map)
+          @translations ||= {}
+          @translations = accessor_map.merge(@translations)
+          accessor_map.each do |ruby,openx|
+            attr_accessor :"#{ruby}"
+          end
+        end
       end
 
       def initialize(params = {})
@@ -23,9 +31,9 @@ module OpenX
         params = {}
         self.class.translations.keys.each { |k|
           value = send(:"#{k}")
-          params[self.class.translations[k]] = value if value
+          params[self.class.translations[k].to_s] = value if value
         }
-        
+
         if new_record?
           @id = @server.call(self.class.create, session.id, params)
         else
