@@ -50,8 +50,11 @@ class AdvertiserTest < Test::Unit::TestCase
     }
     assert_not_nil advertiser
 
+    original = advertiser
     advertiser = Advertiser.find(@session, advertiser.id)
+    assert_equal(original, advertiser)
     assert_not_nil advertiser
+    assert_not_nil advertiser.agency
     init_params.each do |k,v|
       assert_equal(v, advertiser.send(:"#{k}"))
     end

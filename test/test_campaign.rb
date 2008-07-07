@@ -32,6 +32,20 @@ class CampaignTest < Test::Unit::TestCase
     end
   end
 
+  def test_find
+    a = nil
+    assert_nothing_raised {
+      a = Campaign.create!(init_params)
+    }
+    assert_not_nil a
+    a = Campaign.find(@session, a.id)
+    assert a
+    assert_equal(init_params[:advertiser].id, a.advertiser.id)
+    init_params.each { |k,v|
+      assert_equal(v, a.send(:"#{k}"))
+    }
+  end
+
   def init_params
     {
       :advertiser => @advertiser,

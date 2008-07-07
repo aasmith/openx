@@ -11,6 +11,8 @@ module OpenX
                      :agency_id     => :agencyId,
                      :id            => :advertiserId
 
+      has_one :agency
+
       self.endpoint = '/AdvertiserXmlRpcService.php'
       self.create   = 'addAdvertiser'
       self.update   = 'modifyAdvertiser'

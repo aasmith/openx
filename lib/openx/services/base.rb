@@ -1,6 +1,8 @@
 module OpenX
   module Services
     class Base
+      include Comparable
+
       class << self
         attr_accessor :endpoint, :translations
         attr_accessor :create, :update, :delete, :find_one, :find_all
@@ -14,6 +16,17 @@ module OpenX
           @translations = accessor_map.merge(@translations)
           accessor_map.each do |ruby,openx|
             attr_accessor :"#{ruby}"
+          end
+        end
+
+        def has_one(*things)
+          things.each do |thing|
+            attr_writer :"#{thing}"
+            define_method(:"#{thing}") do
+              klass = thing.to_s.capitalize.gsub(/_[a-z]/) { |m| m[1].chr.upcase }
+              klass = OpenX::Services.const_get(:"#{klass}")
+              klass.find(@session, send("#{thing}_id"))
+            end
           end
         end
 
@@ -71,6 +84,10 @@ module OpenX
       def destroy
         @server.call(self.class.delete, session.id, id)
         @id = nil
+      end
+
+      def <=>(other)
+        self.id <=> other.id
       end
     end
   end
