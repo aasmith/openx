@@ -19,7 +19,7 @@ module OpenX
       self.find_all = 'getAdvertiserListByAgencyId'
 
       def initialize(params = {})
-        raise unless params[:agency_id] || params[:agency]
+        raise "need agency" unless params[:agency_id] || params[:agency]
         params[:agency_id] ||= params[:agency].id
         super(params)
       end

@@ -7,7 +7,7 @@ class AdvertiserTest < Test::Unit::TestCase
   def setup
     @session = Session.new(TEST_URL)
     assert_nothing_raised {
-      @session.create('admin', 'vendo')
+      @session.create(TEST_USERNAME, TEST_PASSWORD)
     }
     @agency     = agency
     @advertiser = advertiser
@@ -37,13 +37,14 @@ class AdvertiserTest < Test::Unit::TestCase
       :advertiser => @advertiser,
       :session    => @session,
       :name       => 'Test Campaign',
+      :impressions => 2000
     }
   end
 
   def agency
     Agency.create!(
       {
-        :name         => 'Testing!',
+        :name         => "agency-#{Time.now}",
         :contact_name => 'Contact Name!',
         :email        => 'foo@bar.com'
       }.merge({:session => @session})
@@ -53,7 +54,7 @@ class AdvertiserTest < Test::Unit::TestCase
   def advertiser
     Advertiser.create!(
       {
-        :name         => 'Testing!',
+        :name         => "adv-#{Time.now}",
         :contact_name => 'Contact Name!',
         :email        => 'foo@bar.com'
       }.merge({:session => @session, :agency => @agency})

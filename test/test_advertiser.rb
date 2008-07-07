@@ -6,7 +6,7 @@ class AdvertiserTest < Test::Unit::TestCase
   def setup
     @session = Session.new(TEST_URL)
     assert_nothing_raised {
-      @session.create('admin', 'vendo')
+      @session.create(TEST_USERNAME, TEST_PASSWORD)
     }
     @agency = agency
   end
