@@ -1,7 +1,7 @@
 require 'helper'
 require 'date'
 
-class AdvertiserTest < Test::Unit::TestCase
+class CampaignTest < Test::Unit::TestCase
   include OpenX::Services
 
   def setup
