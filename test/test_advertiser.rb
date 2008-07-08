@@ -8,6 +8,7 @@ class AdvertiserTest < Test::Unit::TestCase
     assert_nothing_raised {
       @session.create(TEST_USERNAME, TEST_PASSWORD)
     }
+    Base.connection = @session
     @agency = agency
   end
 
@@ -22,7 +23,6 @@ class AdvertiserTest < Test::Unit::TestCase
     advertiser = nil
     assert_nothing_raised {
       advertiser = Advertiser.create!(init_params.merge({
-        :session  => @session,
         :agency   => @agency,
       }))
     }
@@ -51,7 +51,7 @@ class AdvertiserTest < Test::Unit::TestCase
     assert_not_nil advertiser
 
     original = advertiser
-    advertiser = Advertiser.find(@session, advertiser.id)
+    advertiser = Advertiser.find(advertiser.id)
     assert_equal(original, advertiser)
     assert_not_nil advertiser
     assert_not_nil advertiser.agency
@@ -67,7 +67,7 @@ class AdvertiserTest < Test::Unit::TestCase
     }
     assert_not_nil advertiser
 
-    advertisers = Advertiser.find(@session, :all, @agency.id)
+    advertisers = Advertiser.find(:all, @agency.id)
 
     advertiser = advertisers.find { |a| a.id == advertiser.id }
     assert_not_nil advertiser
@@ -90,7 +90,7 @@ class AdvertiserTest < Test::Unit::TestCase
         :name         => 'Testing!',
         :contact_name => 'Contact Name!',
         :email        => 'foo@bar.com'
-      }.merge({:session => @session})
+      }
     )
   end
 end

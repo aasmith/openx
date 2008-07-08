@@ -1,7 +1,7 @@
 module OpenX
   module Services
     class Advertiser < Base
-      attr_accessor :session, :agency
+      attr_accessor :agency
 
       openx_accessor :name          => :advertiserName,
                      :contact_name  => :contactName,

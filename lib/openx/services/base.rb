@@ -6,6 +6,7 @@ module OpenX
       class << self
         attr_accessor :endpoint, :translations
         attr_accessor :create, :update, :delete, :find_one, :find_all
+        attr_accessor :connection
 
         def create!(params = {})
           new(params).save!
@@ -25,26 +26,27 @@ module OpenX
             define_method(:"#{thing}") do
               klass = thing.to_s.capitalize.gsub(/_[a-z]/) { |m| m[1].chr.upcase }
               klass = OpenX::Services.const_get(:"#{klass}")
-              klass.find(@session, send("#{thing}_id"))
+              klass.find(send("#{thing}_id"))
             end
           end
         end
 
-        def find(session, id, *args)
+        def find(id, *args)
+          session   = Base.connection
           server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
           if id == :all
             responses = server.call(find_all(), session.id, *args)
             responses.map { |response|
-              new(translate(response).merge({:session => session}))
+              new(translate(response))
             }
           else
             response  = server.call(find_one(), session.id, id)
-            new(translate(response).merge({:session => session}))
+            new(translate(response))
           end
         end
 
-        def destroy(session, id)
-          new({:session => session, :id => id }).destroy
+        def destroy(id)
+          new(:id => id).destroy
         end
 
         private
@@ -58,16 +60,16 @@ module OpenX
       end
 
       def initialize(params = {})
-        raise "No session provided" unless params[:session]
         @id = nil
         params.each { |k,v| send(:"#{k}=", v) }
-        @server = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
+        @server = XMLRPC::Client.new2("#{Base.connection.url}#{self.class.endpoint}")
       end
 
       def new_record?; @id.nil?; end
 
       def save!
         params = {}
+        session = Base.connection
         self.class.translations.keys.each { |k|
           value = send(:"#{k}")
           params[self.class.translations[k].to_s] = value if value
@@ -82,6 +84,7 @@ module OpenX
       end
 
       def destroy
+        session = Base.connection
         @server.call(self.class.delete, session.id, id)
         @id = nil
       end

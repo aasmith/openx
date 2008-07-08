@@ -9,6 +9,7 @@ class CampaignTest < Test::Unit::TestCase
     assert_nothing_raised {
       @session.create(TEST_USERNAME, TEST_PASSWORD)
     }
+    Base.connection = @session
     @agency     = agency
     @advertiser = advertiser
   end
@@ -38,7 +39,7 @@ class CampaignTest < Test::Unit::TestCase
       a = Campaign.create!(init_params)
     }
     assert_not_nil a
-    a = Campaign.find(@session, a.id)
+    a = Campaign.find(a.id)
     assert a
     assert_equal(init_params[:advertiser].id, a.advertiser.id)
     init_params.each { |k,v|
@@ -49,7 +50,6 @@ class CampaignTest < Test::Unit::TestCase
   def init_params
     {
       :advertiser => @advertiser,
-      :session    => @session,
       :name       => 'Test Campaign',
       :impressions => 2000
     }
@@ -61,7 +61,7 @@ class CampaignTest < Test::Unit::TestCase
         :name         => "agency-#{Time.now}",
         :contact_name => 'Contact Name!',
         :email        => 'foo@bar.com'
-      }.merge({:session => @session})
+      }
     )
   end
 
@@ -71,7 +71,7 @@ class CampaignTest < Test::Unit::TestCase
         :name         => "adv-#{Time.now}",
         :contact_name => 'Contact Name!',
         :email        => 'foo@bar.com'
-      }.merge({:session => @session, :agency => @agency})
+      }.merge(:agency => @agency)
     )
   end
 end

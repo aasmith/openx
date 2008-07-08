@@ -1,8 +1,6 @@
 module OpenX
   module Services
     class Campaign < Base
-      attr_accessor :session
-
       # Translate our property names to OpenX property names
       openx_accessor  :name           => :campaignName,
                       :advertiser_id  => :advertiserId,

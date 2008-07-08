@@ -1,8 +1,6 @@
 module OpenX
   module Services
     class Agency < Base
-      attr_accessor :session
-
       # Translate our property names to OpenX property names
       openx_accessor  :name          => :agencyName,
                       :contact_name  => :contactName,
@@ -22,7 +20,6 @@ module OpenX
       def create_advertiser!(params = {})
         Advertiser.create!(params.merge({
           :agency   => self,
-          :session  => session
         }))
       end
     end
