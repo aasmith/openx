@@ -19,6 +19,7 @@ module OpenX
       self.update   = 'modifyCampaign'
       self.delete   = 'deleteCampaign'
       self.find_one = 'getCampaign'
+      self.find_all = 'getCampaignListByAdvertiserId'
 
       def initialize(params = {})
         raise ArgumentError unless params[:advertiser_id] || params[:advertiser]
