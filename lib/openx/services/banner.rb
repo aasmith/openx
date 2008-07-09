@@ -32,6 +32,8 @@ module OpenX
       self.create   = 'addBanner'
       self.update   = 'modifyBanner'
       self.delete   = 'deleteBanner'
+      self.find_one = 'getBanner'
+      self.find_all = 'getBannerListByCampaignId'
 
       def initialize(params = {})
         raise ArgumentError unless params[:campaign_id] || params[:campaign]
