@@ -3,6 +3,7 @@ require 'date'
 
 class BannerTest < Test::Unit::TestCase
   TEST_SWF = File.expand_path(File.join(File.dirname(__FILE__), 'assets', 'cat.swf'))
+  TEST_JPG = File.expand_path(File.join(File.dirname(__FILE__), 'assets', '300x250.jpg'))
 
   include OpenX::Services
 
@@ -29,6 +30,20 @@ class BannerTest < Test::Unit::TestCase
   def test_create
     banner = nil
     params = init_params
+    assert_nothing_raised {
+      banner = Banner.create!(params)
+    }
+    assert_not_nil banner
+    params.each do |k,v|
+      assert_equal(v, banner.send(:"#{k}"))
+    end
+  end
+
+  def test_create_with_jpg
+    banner = nil
+    params = init_params.merge({
+      :image => OpenX::Image.new(File.open(TEST_JPG, 'rb'))
+    })
     assert_nothing_raised {
       banner = Banner.create!(params)
     }
