@@ -63,6 +63,7 @@ module OpenX
         @id = nil
         params.each { |k,v| send(:"#{k}=", v) }
         @server = XMLRPC::Client.new2("#{Base.connection.url}#{self.class.endpoint}")
+        @server.instance_variable_get(:@http).set_debug_output($stderr)
       end
 
       def new_record?; @id.nil?; end
