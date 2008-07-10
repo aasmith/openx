@@ -2,16 +2,18 @@ require 'helper'
 
 class SessionTest < OpenX::TestCase
   def test_login
-    session = Session.new(TEST_URL)
+    config = Base.configuration
+    session = Session.new(config['url'])
     assert_nothing_raised {
-      session.create(TEST_USERNAME, TEST_PASSWORD)
+      session.create(config['username'], config['password'])
     }
   end
 
   def test_logout
-    session = Session.new(TEST_URL)
+    config = Base.configuration
+    session = Session.new(config['url'])
     assert_nothing_raised {
-      session.create(TEST_USERNAME, TEST_PASSWORD)
+      session.create(config['username'], config['password'])
     }
     assert_not_nil session.id
     assert_nothing_raised {

@@ -14,11 +14,12 @@ module OpenX
         attr_writer :configuration, :connection
 
         def configuration
-          @configuration ||= YAML.load_file(CONFIGURATION_YAML)
+          @configuration ||=
+            YAML.load_file(CONFIGURATION_YAML)[ENV['OPENX_ENV'] || 'production']
         end
 
         def connection
-          unless( defined?(@connection) && @connection.nil? )
+          unless( defined?(@connection) && !@connection.nil? )
             @connection = Session.new(configuration['url'])
             @connection.create( configuration['username'],
                                 configuration['password']
