@@ -2,20 +2,6 @@ require 'helper'
 require 'date'
 
 class CampaignTest < OpenX::TestCase
-  def setup
-    super
-    @agency     = agency
-    @advertiser = advertiser
-  end
-
-  def destroy
-    assert_nothing_raised {
-      @advertiser.destroy
-      @agency.destroy
-      @session.destroy
-    }
-  end
-
   def test_destroy
     a = nil
     assert_nothing_raised {
@@ -70,7 +56,7 @@ class CampaignTest < OpenX::TestCase
 
   def init_params
     {
-      :advertiser => @advertiser,
+      :advertiser => advertiser,
       :name       => "Test Campaign-#{Time.now}",
       :impressions => 2000
     }

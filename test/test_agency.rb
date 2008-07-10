@@ -5,9 +5,7 @@ class AgencyTest < OpenX::TestCase
     Agency.find(:all).each do |agency|
       agency.destroy if agency.name == init_params[:name]
     end
-    assert_nothing_raised {
-      @session.destroy
-    }
+    super
   end
 
   def test_create!

@@ -5,22 +5,6 @@ class BannerTest < OpenX::TestCase
   TEST_SWF = File.expand_path(File.join(File.dirname(__FILE__), 'assets', 'cat.swf'))
   TEST_JPG = File.expand_path(File.join(File.dirname(__FILE__), 'assets', '300x250.jpg'))
 
-  def setup
-    super
-    @agency     = agency
-    @advertiser = advertiser
-    @campaign   = campaign
-  end
-
-  def destroy
-    assert_nothing_raised {
-      @campaign.destroy
-      @advertiser.destroy
-      @agency.destroy
-      @session.destroy
-    }
-  end
-
   def test_destroy
     params = init_params
     banner = Banner.create!(params)
@@ -92,7 +76,7 @@ class BannerTest < OpenX::TestCase
     {
       :name         => "Banner-#{Time.now}",
       :storage_type => Banner::LOCAL_SQL,
-      :campaign     => @campaign,
+      :campaign     => campaign,
       :url          => 'http://tenderlovemaking.com/',
       :file_name    => 'oogabooga',
       :image        => OpenX::Image.new(File.open(TEST_SWF, 'rb'))

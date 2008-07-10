@@ -1,23 +1,11 @@
 require 'helper'
 
 class AdvertiserTest < OpenX::TestCase
-  def setup
-    super
-    @agency = agency
-  end
-
-  def destroy
-    assert_nothing_raised {
-      @agency.destroy
-      @session.destroy
-    }
-  end
-
   def test_create_advertiser
     advertiser = nil
     assert_nothing_raised {
       advertiser = Advertiser.create!(init_params.merge({
-        :agency   => @agency,
+        :agency   => agency,
       }))
     }
     assert_not_nil advertiser
@@ -29,7 +17,7 @@ class AdvertiserTest < OpenX::TestCase
   def test_destroy
     a = nil
     assert_nothing_raised {
-      a = Advertiser.create!(init_params.merge({:agency => @agency}))
+      a = Advertiser.create!(init_params.merge({:agency => agency}))
     }
     id = a.id
     assert_nothing_raised {
@@ -43,7 +31,7 @@ class AdvertiserTest < OpenX::TestCase
   def test_create_advertiser_with_agency
     advertiser = nil
     assert_nothing_raised {
-      advertiser = @agency.create_advertiser!(init_params)
+      advertiser = agency.create_advertiser!(init_params)
     }
     assert_not_nil advertiser
     init_params.each do |k,v|
@@ -54,7 +42,7 @@ class AdvertiserTest < OpenX::TestCase
   def test_find_advertiser
     advertiser = nil
     assert_nothing_raised {
-      advertiser = @agency.create_advertiser!(init_params)
+      advertiser = agency.create_advertiser!(init_params)
     }
     assert_not_nil advertiser
 
@@ -71,11 +59,11 @@ class AdvertiserTest < OpenX::TestCase
   def test_find_all_advertisers
     advertiser = nil
     assert_nothing_raised {
-      advertiser = @agency.create_advertiser!(init_params)
+      advertiser = agency.create_advertiser!(init_params)
     }
     assert_not_nil advertiser
 
-    advertisers = Advertiser.find(:all, @agency.id)
+    advertisers = Advertiser.find(:all, agency.id)
 
     advertiser = advertisers.find { |a| a.id == advertiser.id }
     assert_not_nil advertiser

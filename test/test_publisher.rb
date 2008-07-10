@@ -36,7 +36,7 @@ class PublisherTest < OpenX::TestCase
   def test_find_all
     params = init_params
     publisher = Publisher.create!(params)
-    publishers = Publisher.find(:all, @agency.id)
+    publishers = Publisher.find(:all, agency.id)
     pub = publishers.find { |a| a.id == publisher.id }
     assert_not_nil pub
     assert_equal(publisher, pub)
@@ -58,24 +58,12 @@ class PublisherTest < OpenX::TestCase
 
   def init_params
     {
-      :agency       => @agency,
+      :agency       => agency,
       :name         => "Publisher! - #{Time.now}",
       :contact_name => 'Aaron Patterson',
       :email        => 'aaron@tenderlovemaking.com',
       :username     => 'one',
       :password     => 'two',
-    }
-  end
-
-  def setup
-    super
-    @agency = agency
-  end
-
-  def destroy
-    assert_nothing_raised {
-      @agency.destroy
-      @session.destroy
     }
   end
 end

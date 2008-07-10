@@ -19,7 +19,7 @@ module OpenX
     end
 
     def agency
-      Agency.create!(
+      @agency ||= Agency.create!(
         {
           :name         => "Testing! - #{Time.now}",
           :contact_name => 'Contact Name!',
@@ -29,19 +29,19 @@ module OpenX
     end
 
     def advertiser
-      Advertiser.create!(
+      @advertiser ||= Advertiser.create!(
         {
           :name         => "adv-#{Time.now}",
           :contact_name => 'Contact Name!',
           :email        => 'foo@bar.com'
-        }.merge(:agency => @agency)
+        }.merge(:agency => agency)
       )
     end
 
     def campaign
-      Campaign.create!(
+      @campaign ||= Campaign.create!(
         {
-          :advertiser => @advertiser,
+          :advertiser => advertiser,
           :name         => "Campaign-#{Time.now}",
           :impressions => 2000
         }
@@ -49,9 +49,9 @@ module OpenX
     end
 
     def publisher
-      Publisher.create!(
+      @publisher ||= Publisher.create!(
         {
-          :agency       => @agency,
+          :agency       => agency,
           :name         => "Publisher! - #{Time.now}",
           :contact_name => 'Aaron Patterson',
           :email        => 'aaron@tenderlovemaking.com',
@@ -59,6 +59,13 @@ module OpenX
           :password     => 'two',
         }
       )
+    end
+
+    def destroy
+      @publisher.destroy if defined? @publisher
+      @campaign.destroy if defined? @campaign
+      @advertiser.destroy if defined? @advertiser
+      @agency.destroy if defined? @agency
     end
   end
 end

@@ -1,19 +1,6 @@
 require 'helper'
 
 class ZoneTest < OpenX::TestCase
-  def setup
-    super
-    @agency = agency
-    @publisher = publisher
-  end
-
-  def destroy
-    assert_nothing_raised {
-      @agency.destroy
-      @session.destroy
-    }
-  end
-
   def test_create
     params = init_params
     zone = Zone.create!(params)
@@ -39,7 +26,7 @@ class ZoneTest < OpenX::TestCase
     zone = Zone.create!(params)
     assert_not_nil zone
 
-    zones = Zone.find(:all, @publisher.id)
+    zones = Zone.find(:all, publisher.id)
     found_zone = zones.find { |z| z.id == zone.id }
     assert found_zone
     assert_equal(zone, found_zone)
@@ -74,7 +61,7 @@ class ZoneTest < OpenX::TestCase
 
   def init_params
     {
-      :publisher  => @publisher,
+      :publisher  => publisher,
       :name       => "Zone - #{Time.now}",
       :type       => Zone::BANNER,
       :width      => 468,
