@@ -1,12 +1,31 @@
+require 'yaml'
+
 module OpenX
   module Services
     class Base
       include Comparable
 
+      CONFIGURATION_YAML = File.join(ENV['HOME'], '.openx', 'credentials.yml')
+
       class << self
         attr_accessor :endpoint, :translations
         attr_accessor :create, :update, :delete, :find_one, :find_all
-        attr_accessor :connection
+
+        attr_writer :configuration, :connection
+
+        def configuration
+          @configuration ||= YAML.load_file(CONFIGURATION_YAML)
+        end
+
+        def connection
+          unless( defined?(@connection) && @connection.nil? )
+            @connection = Session.new(configuration['url'])
+            @connection.create( configuration['username'],
+                                configuration['password']
+                              )
+          end
+          @connection
+        end
 
         def create!(params = {})
           new(params).save!

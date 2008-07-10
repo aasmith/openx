@@ -3,11 +3,7 @@ require 'date'
 
 class CampaignTest < OpenX::TestCase
   def setup
-    @session = Session.new(TEST_URL)
-    assert_nothing_raised {
-      @session.create(TEST_USERNAME, TEST_PASSWORD)
-    }
-    Base.connection = @session
+    super
     @agency     = agency
     @advertiser = advertiser
   end

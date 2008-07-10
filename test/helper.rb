@@ -16,6 +16,14 @@ module OpenX
 
     undef :default_test
 
+    def setup
+      Base.configuration = {
+        'url'       => TEST_URL,
+        'username'  => TEST_USERNAME,
+        'password'  => TEST_PASSWORD,
+      }
+    end
+
     def agency
       Agency.create!(
         {

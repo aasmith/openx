@@ -1,14 +1,6 @@
 require 'helper'
 
 class AgencyTest < OpenX::TestCase
-  def setup
-    @session = Session.new(TEST_URL)
-    assert_nothing_raised {
-      @session.create(TEST_USERNAME, TEST_PASSWORD)
-    }
-    Base.connection = @session
-  end
-
   def destroy
     Agency.find(:all).each do |agency|
       agency.destroy if agency.name == init_params[:name]
