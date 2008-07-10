@@ -27,6 +27,46 @@ module OpenX
         params[:publisher_id] ||= params[:publisher].id
         super(params)
       end
+
+      # Link this zone to +campaign+
+      def link_campaign(campaign)
+        raise "Zone must be saved" if new_record?
+        raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
+
+        session   = Base.connection
+        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
+        server.call("linkCampaign", session.id, self.id, campaign.id)
+      end
+
+      # Unlink this zone from +campaign+
+      def unlink_campaign(campaign)
+        raise "Zone must be saved" if new_record?
+        raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
+
+        session   = Base.connection
+        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
+        server.call("unlinkCampaign", session.id, self.id, campaign.id)
+      end
+
+      # Link this zone to +banner+
+      def link_banner(banner)
+        raise "Zone must be saved" if new_record?
+        raise ArgumentError.new("Banner must be saved")if banner.new_record?
+
+        session   = Base.connection
+        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
+        server.call("linkBanner", session.id, self.id, banner.id)
+      end
+
+      # Unlink this zone from +banner+
+      def unlink_banner(banner)
+        raise "Zone must be saved" if new_record?
+        raise ArgumentError.new("Banner must be saved")if banner.new_record?
+
+        session   = Base.connection
+        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
+        server.call("unlinkBanner", session.id, self.id, banner.id)
+      end
     end
   end
 end

@@ -59,6 +59,30 @@ class ZoneTest < OpenX::TestCase
     assert_equal('tenderlove', found_zone.name)
   end
 
+  def test_link_campaign
+    assert zone.link_campaign(campaign)
+  end
+
+  def test_unlink_campaign
+    assert_raises(XMLRPC::FaultException) {
+      zone.unlink_campaign(campaign)
+    }
+    assert zone.link_campaign(campaign)
+    assert zone.unlink_campaign(campaign)
+  end
+
+  def test_link_banner
+    assert zone.link_banner(banner)
+  end
+
+  def test_unlink_banner
+    assert_raises(XMLRPC::FaultException) {
+      zone.unlink_banner(banner)
+    }
+    assert zone.link_banner(banner)
+    assert zone.unlink_banner(banner)
+  end
+
   def init_params
     {
       :publisher  => publisher,

@@ -7,6 +7,9 @@ ENV['OPENX_ENV'] = 'test'
 
 module OpenX
   class TestCase < Test::Unit::TestCase
+    TEST_SWF = File.expand_path(File.join(File.dirname(__FILE__), 'assets', 'cat.swf'))
+    TEST_JPG = File.expand_path(File.join(File.dirname(__FILE__), 'assets', '300x250.jpg'))
+
     include OpenX::Services
 
     undef :default_test
@@ -61,7 +64,32 @@ module OpenX
       )
     end
 
+    def zone
+      @zone ||= Zone.create!(
+        {
+          :publisher  => publisher,
+          :name       => "Zone - #{Time.now}",
+          :type       => Zone::BANNER,
+          :width      => 300,
+          :height     => 250,
+        }
+      )
+    end
+
+    def banner
+      @banner ||= Banner.create!({
+        :name         => "Banner-#{Time.now}",
+        :storage_type => Banner::LOCAL_SQL,
+        :campaign     => campaign,
+        :url          => 'http://tenderlovemaking.com/',
+        :file_name    => 'oogabooga',
+        :image        => OpenX::Image.new(File.open(TEST_SWF, 'rb'))
+      })
+    end
+
     def destroy
+      @banner.destroy if defined? @banner
+      @zone.destroy if defined? @zone
       @publisher.destroy if defined? @publisher
       @campaign.destroy if defined? @campaign
       @advertiser.destroy if defined? @advertiser

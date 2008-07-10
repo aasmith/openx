@@ -2,9 +2,6 @@ require 'helper'
 require 'date'
 
 class BannerTest < OpenX::TestCase
-  TEST_SWF = File.expand_path(File.join(File.dirname(__FILE__), 'assets', 'cat.swf'))
-  TEST_JPG = File.expand_path(File.join(File.dirname(__FILE__), 'assets', '300x250.jpg'))
-
   def test_destroy
     params = init_params
     banner = Banner.create!(params)
