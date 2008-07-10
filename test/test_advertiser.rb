@@ -30,6 +30,20 @@ class AdvertiserTest < OpenX::TestCase
     end
   end
 
+  def test_destroy
+    a = nil
+    assert_nothing_raised {
+      a = Advertiser.create!(init_params.merge({:agency => @agency}))
+    }
+    id = a.id
+    assert_nothing_raised {
+      a.destroy
+    }
+    assert_raises(XMLRPC::FaultException) {
+      Advertiser.find(id)
+    }
+  end
+
   def test_create_advertiser_with_agency
     advertiser = nil
     assert_nothing_raised {
