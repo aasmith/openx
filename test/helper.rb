@@ -45,5 +45,18 @@ module OpenX
         }
       )
     end
+
+    def publisher
+      Publisher.create!(
+        {
+          :agency       => @agency,
+          :name         => "Publisher! - #{Time.now}",
+          :contact_name => 'Aaron Patterson',
+          :email        => 'aaron@tenderlovemaking.com',
+          :username     => 'one',
+          :password     => 'two',
+        }
+      )
+    end
   end
 end
