@@ -1,9 +1,7 @@
 require 'helper'
 require 'date'
 
-class CampaignTest < Test::Unit::TestCase
-  include OpenX::Services
-
+class CampaignTest < OpenX::TestCase
   def setup
     @session = Session.new(TEST_URL)
     assert_nothing_raised {
@@ -80,25 +78,5 @@ class CampaignTest < Test::Unit::TestCase
       :name       => "Test Campaign-#{Time.now}",
       :impressions => 2000
     }
-  end
-
-  def agency
-    Agency.create!(
-      {
-        :name         => "agency-#{Time.now}",
-        :contact_name => 'Contact Name!',
-        :email        => 'foo@bar.com'
-      }
-    )
-  end
-
-  def advertiser
-    Advertiser.create!(
-      {
-        :name         => "adv-#{Time.now}",
-        :contact_name => 'Contact Name!',
-        :email        => 'foo@bar.com'
-      }.merge(:agency => @agency)
-    )
   end
 end

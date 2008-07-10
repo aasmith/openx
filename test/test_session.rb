@@ -1,8 +1,6 @@
 require 'helper'
 
-class SessionTest < Test::Unit::TestCase
-  include OpenX::Services
-
+class SessionTest < OpenX::TestCase
   def test_login
     session = Session.new(TEST_URL)
     assert_nothing_raised {

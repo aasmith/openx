@@ -1,8 +1,6 @@
 require 'helper'
 
-class AdvertiserTest < Test::Unit::TestCase
-  include OpenX::Services
-
+class AdvertiserTest < OpenX::TestCase
   def setup
     @session = Session.new(TEST_URL)
     assert_nothing_raised {
@@ -82,15 +80,5 @@ class AdvertiserTest < Test::Unit::TestCase
       :contact_name => 'Contact name',
       :email        => 'email@example.com',
     }
-  end
-
-  def agency
-    Agency.create!(
-      {
-        :name         => 'Testing!',
-        :contact_name => 'Contact Name!',
-        :email        => 'foo@bar.com'
-      }
-    )
   end
 end

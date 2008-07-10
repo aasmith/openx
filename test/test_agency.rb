@@ -1,8 +1,6 @@
 require 'helper'
 
-class AgencyTest < Test::Unit::TestCase
-  include OpenX::Services
-
+class AgencyTest < OpenX::TestCase
   def setup
     @session = Session.new(TEST_URL)
     assert_nothing_raised {

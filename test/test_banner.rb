@@ -1,11 +1,9 @@
 require 'helper'
 require 'date'
 
-class BannerTest < Test::Unit::TestCase
+class BannerTest < OpenX::TestCase
   TEST_SWF = File.expand_path(File.join(File.dirname(__FILE__), 'assets', 'cat.swf'))
   TEST_JPG = File.expand_path(File.join(File.dirname(__FILE__), 'assets', '300x250.jpg'))
-
-  include OpenX::Services
 
   def setup
     @session = Session.new(TEST_URL)
@@ -103,35 +101,5 @@ class BannerTest < Test::Unit::TestCase
       :file_name    => 'oogabooga',
       :image        => OpenX::Image.new(File.open(TEST_SWF, 'rb'))
     }
-  end
-
-  def agency
-    Agency.create!(
-      {
-        :name         => "agency-#{Time.now}",
-        :contact_name => 'Contact Name!',
-        :email        => 'foo@bar.com'
-      }
-    )
-  end
-
-  def advertiser
-    Advertiser.create!(
-      {
-        :name         => "adv-#{Time.now}",
-        :contact_name => 'Contact Name!',
-        :email        => 'foo@bar.com'
-      }.merge(:agency => @agency)
-    )
-  end
-
-  def campaign
-    Campaign.create!(
-      {
-        :advertiser => @advertiser,
-        :name         => "Campaign-#{Time.now}",
-        :impressions => 2000
-      }
-    )
   end
 end
