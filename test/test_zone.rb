@@ -83,6 +83,10 @@ class ZoneTest < OpenX::TestCase
     assert zone.unlink_banner(banner)
   end
 
+  def test_generate_tags
+    assert_match(/iframe/, zone.generate_tags)
+  end
+
   def init_params
     {
       :publisher  => publisher,

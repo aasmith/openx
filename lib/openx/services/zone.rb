@@ -1,10 +1,16 @@
 module OpenX
   module Services
     class Zone < Base
+      # Delivery types
       BANNER        = 'delivery-b'
       INTERSTITIAL  = 'delivery-i'
       TEXT          = 'delivery-t'
       EMAIL         = 'delivery-e'
+
+      # Tag Types
+      JAVASCRIPT  = 'adjs'
+      LOCAL       = 'local'
+      IFRAME      = 'adframe'
 
       openx_accessor :name          => :zoneName,
                      :id            => :zoneId,
@@ -66,6 +72,13 @@ module OpenX
         session   = Base.connection
         server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
         server.call("unlinkBanner", session.id, self.id, banner.id)
+      end
+
+      # Generate tags for displaying this zone using +tag_type+
+      def generate_tags(tag_type = IFRAME)
+        session   = Base.connection
+        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
+        server.call("generateTags", session.id, self.id, tag_type, [])
       end
     end
   end
