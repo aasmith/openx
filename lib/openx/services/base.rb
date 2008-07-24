@@ -52,7 +52,7 @@ module OpenX
         end
 
         def find(id, *args)
-          session   = Base.connection
+          session   = self.connection
           server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
           if id == :all
             responses = server.call(find_all(), session.id, *args)
@@ -82,7 +82,7 @@ module OpenX
       def initialize(params = {})
         @id = nil
         params.each { |k,v| send(:"#{k}=", v) }
-        @server = XMLRPC::Client.new2("#{Base.connection.url}#{self.class.endpoint}")
+        @server = XMLRPC::Client.new2("#{self.class.connection.url}#{self.class.endpoint}")
         #@server.instance_variable_get(:@http).set_debug_output($stderr)
       end
 
@@ -90,7 +90,7 @@ module OpenX
 
       def save!
         params = {}
-        session = Base.connection
+        session = self.class.connection
         self.class.translations.keys.each { |k|
           value = send(:"#{k}")
           params[self.class.translations[k].to_s] = value if value
@@ -105,7 +105,7 @@ module OpenX
       end
 
       def destroy
-        session = Base.connection
+        session = self.class.connection
         @server.call(self.class.delete, session.id, id)
         @id = nil
       end

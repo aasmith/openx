@@ -39,7 +39,7 @@ module OpenX
         raise "Zone must be saved" if new_record?
         raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
 
-        session   = Base.connection
+        session   = self.class.connection
         server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
         server.call("linkCampaign", session.id, self.id, campaign.id)
       end
@@ -49,7 +49,7 @@ module OpenX
         raise "Zone must be saved" if new_record?
         raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
 
-        session   = Base.connection
+        session   = self.class.connection
         server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
         server.call("unlinkCampaign", session.id, self.id, campaign.id)
       end
@@ -59,7 +59,7 @@ module OpenX
         raise "Zone must be saved" if new_record?
         raise ArgumentError.new("Banner must be saved")if banner.new_record?
 
-        session   = Base.connection
+        session   = self.class.connection
         server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
         server.call("linkBanner", session.id, self.id, banner.id)
       end
@@ -69,14 +69,14 @@ module OpenX
         raise "Zone must be saved" if new_record?
         raise ArgumentError.new("Banner must be saved")if banner.new_record?
 
-        session   = Base.connection
+        session   = self.class.connection
         server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
         server.call("unlinkBanner", session.id, self.id, banner.id)
       end
 
       # Generate tags for displaying this zone using +tag_type+
       def generate_tags(tag_type = IFRAME)
-        session   = Base.connection
+        session   = self.class.connection
         server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
         server.call("generateTags", session.id, self.id, tag_type, [])
       end
