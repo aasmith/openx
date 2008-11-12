@@ -8,7 +8,7 @@ require 'openx'
 
 Hoe.new('openx', OpenX::VERSION) do |p|
   # p.rubyforge_name = 'ruby-openxx' # if different than lowercase project name
-  p.developer('FIX', 'FIX@example.com')
+  p.developer('Aaron Patterson', 'aaron.patterson@gmail.com')
 end
 
 task :clean do

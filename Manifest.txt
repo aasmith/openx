@@ -13,7 +13,6 @@ lib/openx/services/campaign.rb
 lib/openx/services/publisher.rb
 lib/openx/services/session.rb
 lib/openx/services/zone.rb
-test.rb
 test/assets/300x250.jpg
 test/assets/cat.swf
 test/helper.rb
