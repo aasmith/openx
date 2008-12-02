@@ -21,6 +21,16 @@ A Ruby interface to the OpenX XML-RPC API.
 == INSTALL:
 
 * sudo gem install openx
+* Update your $HOME/.openx/credentials.yml file.  Here is a sample:
+
+  ---
+  production:
+    username: admin
+    password: admin
+    url: http://localhost/~aaron/openx-2.5.70-beta/www/api/v1/xmlrpc
+
+The YAML file lists configuration for each environment.  The gem uses the
+'production' environment by default.
 
 == LICENSE:
 
