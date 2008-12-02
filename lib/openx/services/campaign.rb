@@ -37,6 +37,10 @@ module OpenX
         params[:advertiser_id] ||= params[:advertiser].id
         super(params)
       end
+
+      def banners
+        Banner.find(:all, self.id)
+      end
     end
   end
 end

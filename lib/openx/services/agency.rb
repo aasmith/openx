@@ -22,6 +22,10 @@ module OpenX
           :agency   => self,
         }))
       end
+
+      def advertisers
+        Advertiser.find(:all, self.id)
+      end
     end
   end
 end

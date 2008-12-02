@@ -23,6 +23,10 @@ module OpenX
         params[:agency_id] ||= params[:agency].id
         super(params)
       end
+
+      def campaigns
+        Campaign.find(:all, self.id)
+      end
     end
   end
 end
