@@ -7,6 +7,34 @@ module OpenX
       HTML      = 'html'
       TEXT      = 'txt'
 
+      class << self
+        def find(id, *args)
+          session   = self.connection
+          server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
+          if id == :all
+            responses = server.call(find_all(), session.id, *args)
+            response = responses.first
+            return [] unless response
+            responses = [response]
+
+            ### Annoying..  For some reason OpenX returns a linked list.
+            ### Probably a bug....
+            while response.key?('aImage')
+              response = response.delete('aImage')
+              break unless response
+              responses << response
+            end
+
+            responses.map { |response|
+              new(translate(response))
+            }
+          else
+            response  = server.call(find_one(), session.id, id)
+            new(translate(response))
+          end
+        end
+      end
+
       # Translate our property names to OpenX property names
       openx_accessor  :name           => :bannerName,
                       :campaign_id    => :campaignId,
