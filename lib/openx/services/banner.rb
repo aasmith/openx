@@ -1,3 +1,5 @@
+require 'date'
+
 module OpenX
   module Services
     class Banner < Base
@@ -67,6 +69,11 @@ module OpenX
         raise ArgumentError unless params[:campaign_id] || params[:campaign]
         params[:campaign_id] ||= params[:campaign].id
         super(params)
+      end
+
+      def statistics start_on = Date.today - 1, end_on = Date.today + 1
+        session = self.class.connection
+        @server.call('bannerDailyStatistics', session.id, self.id, start_on, end_on)
       end
     end
   end
