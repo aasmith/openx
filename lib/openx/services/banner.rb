@@ -71,7 +71,7 @@ module OpenX
         super(params)
       end
 
-      def statistics start_on = Date.today - 1, end_on = Date.today + 1
+      def statistics start_on = Date.today, end_on = Date.today
         session = self.class.connection
         @server.call('bannerDailyStatistics', session.id, self.id, start_on, end_on)
       end
