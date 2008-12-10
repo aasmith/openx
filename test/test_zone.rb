@@ -27,6 +27,7 @@ class ZoneTest < OpenX::TestCase
     assert_not_nil zone
 
     zones = Zone.find(:all, publisher.id)
+    assert_equal(zones.sort, publisher.zones.sort)
     found_zone = zones.find { |z| z.id == zone.id }
     assert found_zone
     assert_equal(zone, found_zone)

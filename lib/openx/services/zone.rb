@@ -11,6 +11,7 @@ module OpenX
       JAVASCRIPT  = 'adjs'
       LOCAL       = 'local'
       IFRAME      = 'adframe'
+      XMLRPC_TAG  = 'xmlrpc'
 
       openx_accessor :name          => :zoneName,
                      :id            => :zoneId,

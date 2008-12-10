@@ -26,6 +26,10 @@ module OpenX
       def advertisers
         Advertiser.find(:all, self.id)
       end
+
+      def publishers
+        Publisher.find(:all, self.id)
+      end
     end
   end
 end
