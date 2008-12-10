@@ -7,18 +7,19 @@ module OpenX
 
       CONFIGURATION_YAML = File.join(ENV['HOME'], '.openx', 'credentials.yml')
 
-      @@connection = nil
+      @@connection    = nil
+      @@configuration = nil
 
       class << self
         attr_accessor :endpoint, :translations
         attr_accessor :create, :update, :delete, :find_one, :find_all
 
-        attr_writer :configuration
-
         def configuration
-          @configuration ||=
+          @@configuration ||=
             YAML.load_file(CONFIGURATION_YAML)[ENV['OPENX_ENV'] || 'production']
         end
+
+        def configuration=(c); @@configuration = c; end
 
         def connection= c
           @@connection = c

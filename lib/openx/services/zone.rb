@@ -29,6 +29,19 @@ module OpenX
       self.find_one = 'getZone'
       self.find_all = 'getZoneListByPublisherId'
 
+      class << self
+        ###
+        # Deliver +zone_id+ to +ip_address+ with +cookies+, 
+        def deliver zone_id, ip_address = '192.168.1.1', cookies = []
+          url = "#{self.configuration['root']}/delivery/axmlrpc.php"
+          server = XMLRPC::Client.new2(url)
+          server.call('openads.view', {
+            'cookies'     => cookies,
+            'remote_addr' => ip_address,
+          }, "zone:#{zone_id}", 0, '', '', true, [])
+        end
+      end
+
       def initialize(params = {})
         raise "need publisher" unless params[:publisher_id] || params[:publisher]
         params[:publisher_id] ||= params[:publisher].id
