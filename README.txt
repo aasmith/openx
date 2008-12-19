@@ -1,6 +1,6 @@
 = openx
 
-* FIX (url)
+* http://openx.rubyforge.org
 
 == DESCRIPTION:
 
