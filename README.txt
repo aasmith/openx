@@ -6,10 +6,6 @@
 
 A Ruby interface to the OpenX XML-RPC API.
 
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
-
 == SYNOPSIS:
 
   OpenX::Services::Base.configuration = {
@@ -39,7 +35,7 @@ A Ruby interface to the OpenX XML-RPC API.
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* ruby
 
 == INSTALL:
 
@@ -59,7 +55,10 @@ The YAML file lists configuration for each environment.  The gem uses the
 
 (The MIT License)
 
-Copyright (c) 2008 Aaron Patterson, Andy Smith
+Copyright (c) 2008:
+
+* {Aaron Patterson}[http://tenderlovemaking.com]
+* Andy Smith
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
