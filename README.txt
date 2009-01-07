@@ -12,7 +12,30 @@ A Ruby interface to the OpenX XML-RPC API.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  OpenX::Services::Base.configuration = {
+    'username'  => 'admin',
+    'password'  => 'password',
+    'url'       => 'http://localhost/www/api/v1/xmlrpc',
+  }
+
+  OpenX::Services::Agency.find(:all).each do |agency|
+    puts agency.name
+
+    # Look up publishers
+    agency.publishers.each do |publisher|
+      puts "-- #{publisher.name}"
+    end
+
+    # Create a publisher
+    Publisher.create!(
+      :agency       => agency,
+      :name         => 'My Test Publisher',
+      :contact_name => 'Aaron Patterson',
+      :email        => 'aaron@tenderlovemaking.com',
+      :username     => 'user',
+      :password     => 'password'
+    )
+  end
 
 == REQUIREMENTS:
 
