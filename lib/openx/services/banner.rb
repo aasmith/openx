@@ -75,6 +75,16 @@ module OpenX
         session = self.class.connection
         @server.call('bannerDailyStatistics', session.id, self.id, start_on, end_on)
       end
+
+      def targeting
+        session = self.class.connection
+        @server.call('getBannerTargeting', session.id, self.id)
+      end
+
+      def targeting= targeting
+        session = self.class.connection
+        @server.call('setBannerTargeting', session.id, self.id, targeting)
+      end
     end
   end
 end
