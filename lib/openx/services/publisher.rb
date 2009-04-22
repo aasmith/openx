@@ -11,12 +11,11 @@ module OpenX
 
       has_one :agency
 
-      self.endpoint = '/PublisherXmlRpcService.php'
-      self.create   = 'addPublisher'
-      self.update   = 'modifyPublisher'
-      self.delete   = 'deletePublisher'
-      self.find_one = 'getPublisher'
-      self.find_all = 'getPublisherListByAgencyId'
+      self.create   = 'ox.addPublisher'
+      self.update   = 'ox.modifyPublisher'
+      self.delete   = 'ox.deletePublisher'
+      self.find_one = 'ox.getPublisher'
+      self.find_all = 'ox.getPublisherListByAgencyId'
 
       def initialize(params = {})
         raise "need agency" unless params[:agency_id] || params[:agency]

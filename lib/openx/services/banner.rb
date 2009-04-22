@@ -9,10 +9,13 @@ module OpenX
       HTML      = 'html'
       TEXT      = 'txt'
 
+      RUNNING = 0
+      PAUSED  = 1
+
       class << self
         def find(id, *args)
           session   = self.connection
-          server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
+          server    = XMLRPC::Client.new2("#{session.url}")
           if id == :all
             responses = server.call(find_all(), session.id, *args)
             response = responses.first
@@ -58,12 +61,11 @@ module OpenX
 
       has_one :campaign
 
-      self.endpoint = '/BannerXmlRpcService.php'
-      self.create   = 'addBanner'
-      self.update   = 'modifyBanner'
-      self.delete   = 'deleteBanner'
-      self.find_one = 'getBanner'
-      self.find_all = 'getBannerListByCampaignId'
+      self.create   = 'ox.addBanner'
+      self.update   = 'ox.modifyBanner'
+      self.delete   = 'ox.deleteBanner'
+      self.find_one = 'ox.getBanner'
+      self.find_all = 'ox.getBannerListByCampaignId'
 
       def initialize(params = {})
         raise ArgumentError unless params[:campaign_id] || params[:campaign]
@@ -73,17 +75,17 @@ module OpenX
 
       def statistics start_on = Date.today, end_on = Date.today
         session = self.class.connection
-        @server.call('bannerDailyStatistics', session.id, self.id, start_on, end_on)
+        @server.call('ox.bannerDailyStatistics', session.id, self.id, start_on, end_on)
       end
 
       def targeting
         session = self.class.connection
-        @server.call('getBannerTargeting', session.id, self.id)
+        @server.call('ox.getBannerTargeting', session.id, self.id)
       end
 
       def targeting= targeting
         session = self.class.connection
-        @server.call('setBannerTargeting', session.id, self.id, targeting)
+        @server.call('ox.setBannerTargeting', session.id, self.id, targeting)
       end
     end
   end

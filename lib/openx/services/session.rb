@@ -3,20 +3,19 @@ module OpenX
     class Session
       attr_accessor :url, :id
 
-      @@endpoint = '/LogonXmlRpcService.php'
       def initialize(url)
         @url    = url
-        @server = XMLRPC::Client.new2("#{@url}#{@@endpoint}")
+        @server = XMLRPC::Client.new2("#{@url}")
         @id     = nil
       end
 
       def create(user, password)
-        @id = @server.call('logon', user, password)
+        @id = @server.call('ox.logon', user, password)
         self
       end
 
       def destroy
-        @server.call('logoff', @id)
+        @server.call('ox.logoff', @id)
         @id = nil
         self
       end

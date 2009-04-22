@@ -11,7 +11,7 @@ module OpenX
       @@configuration = nil
 
       class << self
-        attr_accessor :endpoint, :translations
+        attr_accessor :translations
         attr_accessor :create, :update, :delete, :find_one, :find_all
 
         def configuration
@@ -60,7 +60,7 @@ module OpenX
 
         def find(id, *args)
           session   = self.connection
-          server    = XMLRPC::Client.new2("#{session.url}#{endpoint}")
+          server    = XMLRPC::Client.new2("#{session.url}")
           if id == :all
             responses = server.call(find_all(), session.id, *args)
             responses.map { |response|
@@ -89,7 +89,7 @@ module OpenX
       def initialize(params = {})
         @id = nil
         params.each { |k,v| send(:"#{k}=", v) }
-        @server = XMLRPC::Client.new2("#{self.class.connection.url}#{self.class.endpoint}")
+        @server = XMLRPC::Client.new2("#{self.class.connection.url}")
         #@server.instance_variable_get(:@http).set_debug_output($stderr)
       end
 

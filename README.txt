@@ -11,7 +11,7 @@ A Ruby interface to the OpenX XML-RPC API.
   OpenX::Services::Base.configuration = {
     'username'  => 'admin',
     'password'  => 'password',
-    'url'       => 'http://localhost/www/api/v1/xmlrpc',
+    'url'       => 'http://localhost/www/api/v2/xmlrpc/',
   }
 
   OpenX::Services::Agency.find(:all).each do |agency|
@@ -46,7 +46,7 @@ A Ruby interface to the OpenX XML-RPC API.
   production:
     username: admin
     password: admin
-    url: http://localhost/~aaron/openx-2.5.70-beta/www/api/v1/xmlrpc
+    url: http://localhost/~asmith/openx/www/api/v2/xmlrpc/
 
 The YAML file lists configuration for each environment.  The gem uses the
 'production' environment by default.

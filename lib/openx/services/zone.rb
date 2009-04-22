@@ -22,12 +22,11 @@ module OpenX
 
       has_one :publisher
 
-      self.endpoint = '/ZoneXmlRpcService.php'
-      self.create   = 'addZone'
-      self.update   = 'modifyZone'
-      self.delete   = 'deleteZone'
-      self.find_one = 'getZone'
-      self.find_all = 'getZoneListByPublisherId'
+      self.create   = 'ox.addZone'
+      self.update   = 'ox.modifyZone'
+      self.delete   = 'ox.deleteZone'
+      self.find_one = 'ox.getZone'
+      self.find_all = 'ox.getZoneListByPublisherId'
 
       class << self
         ###
@@ -54,8 +53,8 @@ module OpenX
         raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
-        server.call("linkCampaign", session.id, self.id, campaign.id)
+        server    = XMLRPC::Client.new2("#{session.url}")
+        server.call("ox.linkCampaign", session.id, self.id, campaign.id)
       end
 
       # Unlink this zone from +campaign+
@@ -64,8 +63,8 @@ module OpenX
         raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
-        server.call("unlinkCampaign", session.id, self.id, campaign.id)
+        server    = XMLRPC::Client.new2("#{session.url}")
+        server.call("ox.unlinkCampaign", session.id, self.id, campaign.id)
       end
 
       # Link this zone to +banner+
@@ -74,8 +73,8 @@ module OpenX
         raise ArgumentError.new("Banner must be saved")if banner.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
-        server.call("linkBanner", session.id, self.id, banner.id)
+        server    = XMLRPC::Client.new2("#{session.url}")
+        server.call("ox.linkBanner", session.id, self.id, banner.id)
       end
 
       # Unlink this zone from +banner+
@@ -84,15 +83,15 @@ module OpenX
         raise ArgumentError.new("Banner must be saved")if banner.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
-        server.call("unlinkBanner", session.id, self.id, banner.id)
+        server    = XMLRPC::Client.new2("#{session.url}")
+        server.call("ox.unlinkBanner", session.id, self.id, banner.id)
       end
 
       # Generate tags for displaying this zone using +tag_type+
       def generate_tags(tag_type = IFRAME)
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}#{self.class.endpoint}")
-        server.call("generateTags", session.id, self.id, tag_type, [])
+        server    = XMLRPC::Client.new2("#{session.url}")
+        server.call("ox.generateTags", session.id, self.id, tag_type, [])
       end
     end
   end

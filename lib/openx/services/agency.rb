@@ -10,12 +10,11 @@ module OpenX
                       :id            => :agencyId,
                       :account_id    => :accountId
 
-      self.endpoint = '/AgencyXmlRpcService.php'
-      self.create   = 'addAgency'
-      self.update   = 'modifyAgency'
-      self.delete   = 'deleteAgency'
-      self.find_one = 'getAgency'
-      self.find_all = 'getAgencyList'
+      self.create   = 'ox.addAgency'
+      self.update   = 'ox.modifyAgency'
+      self.delete   = 'ox.deleteAgency'
+      self.find_one = 'ox.getAgency'
+      self.find_all = 'ox.getAgencyList'
 
       def create_advertiser!(params = {})
         Advertiser.create!(params.merge({
