@@ -60,7 +60,7 @@ module OpenX
 
         def find(id, *args)
           session   = self.connection
-          server    = XMLRPC::Client.new2("#{session.url}")
+          server    = XmlrpcClient.new2("#{session.url}")
           if id == :all
             responses = server.call(find_all(), session.id, *args)
             responses.map { |response|
@@ -89,7 +89,7 @@ module OpenX
       def initialize(params = {})
         @id = nil
         params.each { |k,v| send(:"#{k}=", v) }
-        @server = XMLRPC::Client.new2("#{self.class.connection.url}")
+        @server = XmlrpcClient.new2("#{self.class.connection.url}")
         #@server.instance_variable_get(:@http).set_debug_output($stderr)
       end
 
