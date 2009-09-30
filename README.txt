@@ -46,10 +46,13 @@ A Ruby interface to the OpenX XML-RPC API.
   production:
     username: admin
     password: admin
-    url: http://localhost/~asmith/openx/www/api/v2/xmlrpc/
+    url: http://www.example.com/www/api/v2/xmlrpc/
+    invocation_url: http://www.example.com/www/delivery/axmlrpc.php
 
 The YAML file lists configuration for each environment.  The gem uses the
-'production' environment by default.
+'production' environment by default. Trailing slash is required on the 'url'.
+'invocation_url' is only used by the OpenX::Invocation methods to serve 
+advertisements over XML-RPC
 
 == LICENSE:
 
@@ -59,6 +62,7 @@ Copyright (c) 2008:
 
 * {Aaron Patterson}[http://tenderlovemaking.com]
 * Andy Smith
+* {TouchLocal P/L}[http://www.touchlocal.com]
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
