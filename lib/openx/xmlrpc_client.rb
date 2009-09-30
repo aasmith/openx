@@ -23,6 +23,7 @@ module OpenX
       def init_server(uri)
         server = XMLRPC::Client.new2(uri)
         server.timeout = self.timeout
+        #server.instance_variable_get(:@http).set_debug_output($stderr)
         server
       end
       protected :init_server
