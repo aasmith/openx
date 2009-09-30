@@ -5,7 +5,7 @@ module OpenX
 
       def initialize(url)
         @url    = url
-        @server = XMLRPC::Client.new2("#{@url}")
+        @server = XmlrpcClient.new2("#{@url}")
         @id     = nil
       end
 

@@ -33,7 +33,7 @@ module OpenX
         # Deliver +zone_id+ to +ip_address+ with +cookies+, 
         def deliver zone_id, ip_address = '192.168.1.1', cookies = []
           url = "#{self.configuration['root']}/delivery/axmlrpc.php"
-          server = XMLRPC::Client.new2(url)
+          server = XmlrpcClient.new2(url)
           server.call('openads.view', {
             'cookies'     => cookies,
             'remote_addr' => ip_address,
@@ -53,7 +53,7 @@ module OpenX
         raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}")
+        server    = XmlrpcClient.new2("#{session.url}")
         server.call("ox.linkCampaign", session.id, self.id, campaign.id)
       end
 
@@ -63,7 +63,7 @@ module OpenX
         raise ArgumentError.new("Campaign must be saved")if campaign.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}")
+        server    = XmlrpcClient.new2("#{session.url}")
         server.call("ox.unlinkCampaign", session.id, self.id, campaign.id)
       end
 
@@ -73,7 +73,7 @@ module OpenX
         raise ArgumentError.new("Banner must be saved")if banner.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}")
+        server    = XmlrpcClient.new2("#{session.url}")
         server.call("ox.linkBanner", session.id, self.id, banner.id)
       end
 
@@ -83,14 +83,14 @@ module OpenX
         raise ArgumentError.new("Banner must be saved")if banner.new_record?
 
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}")
+        server    = XmlrpcClient.new2("#{session.url}")
         server.call("ox.unlinkBanner", session.id, self.id, banner.id)
       end
 
       # Generate tags for displaying this zone using +tag_type+
       def generate_tags(tag_type = IFRAME)
         session   = self.class.connection
-        server    = XMLRPC::Client.new2("#{session.url}")
+        server    = XmlrpcClient.new2("#{session.url}")
         server.call("ox.generateTags", session.id, self.id, tag_type, [])
       end
     end

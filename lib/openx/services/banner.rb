@@ -15,7 +15,7 @@ module OpenX
       class << self
         def find(id, *args)
           session   = self.connection
-          server    = XMLRPC::Client.new2("#{session.url}")
+          server    = XmlrpcClient.new2("#{session.url}")
           if id == :all
             responses = server.call(find_all(), session.id, *args)
             response = responses.first
