@@ -57,7 +57,11 @@ module OpenX
                       :adserver       => :adserver,
                       :transparent    => :transparent,
                       :image          => :aImage,
-                      :backup_image   => :aBackupImage
+                      :backup_image   => :aBackupImage,
+                      # 'keyword' only supported by patched server
+                      # as per https://developer.openx.org/jira/browse/OX-4779
+                      # No averse effect when unsupported by server (returns nil)
+                      :keyword        => :keyword
 
       has_one :campaign
 
