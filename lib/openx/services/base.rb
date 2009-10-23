@@ -62,12 +62,12 @@ module OpenX
           session   = self.connection
           server    = XmlrpcClient.new2("#{session.url}")
           if id == :all
-            responses = server.call(find_all(), session.id, *args)
+            responses = server.call(find_all(), session, *args)
             responses.map { |response|
               new(translate(response))
             }
           else
-            response  = server.call(find_one(), session.id, id)
+            response  = server.call(find_one(), session, id)
             new(translate(response))
           end
         end
@@ -103,16 +103,16 @@ module OpenX
         }
 
         if new_record?
-          @id = @server.call(self.class.create, session.id, params)
+          @id = @server.call(self.class.create, session, params)
         else
-          @server.call(self.class.update, session.id, params)
+          @server.call(self.class.update, session, params)
         end
         self
       end
 
       def destroy
         session = self.class.connection
-        @server.call(self.class.delete, session.id, id)
+        @server.call(self.class.delete, session, id)
         @id = nil
       end
 

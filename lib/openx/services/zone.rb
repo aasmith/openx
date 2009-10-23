@@ -54,7 +54,7 @@ module OpenX
 
         session   = self.class.connection
         server    = XmlrpcClient.new2("#{session.url}")
-        server.call("ox.linkCampaign", session.id, self.id, campaign.id)
+        server.call("ox.linkCampaign", session, self.id, campaign.id)
       end
 
       # Unlink this zone from +campaign+
@@ -64,7 +64,7 @@ module OpenX
 
         session   = self.class.connection
         server    = XmlrpcClient.new2("#{session.url}")
-        server.call("ox.unlinkCampaign", session.id, self.id, campaign.id)
+        server.call("ox.unlinkCampaign", session, self.id, campaign.id)
       end
 
       # Link this zone to +banner+
@@ -74,7 +74,7 @@ module OpenX
 
         session   = self.class.connection
         server    = XmlrpcClient.new2("#{session.url}")
-        server.call("ox.linkBanner", session.id, self.id, banner.id)
+        server.call("ox.linkBanner", session, self.id, banner.id)
       end
 
       # Unlink this zone from +banner+
@@ -84,14 +84,14 @@ module OpenX
 
         session   = self.class.connection
         server    = XmlrpcClient.new2("#{session.url}")
-        server.call("ox.unlinkBanner", session.id, self.id, banner.id)
+        server.call("ox.unlinkBanner", session, self.id, banner.id)
       end
 
       # Generate tags for displaying this zone using +tag_type+
       def generate_tags(tag_type = IFRAME)
         session   = self.class.connection
         server    = XmlrpcClient.new2("#{session.url}")
-        server.call("ox.generateTags", session.id, self.id, tag_type, [])
+        server.call("ox.generateTags", session, self.id, tag_type, [])
       end
     end
   end

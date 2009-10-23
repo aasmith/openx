@@ -2,6 +2,7 @@ module OpenX
   module Services
     class Session
       attr_accessor :url, :id
+      attr_accessor :user, :password
 
       def initialize(url)
         @url    = url
@@ -10,7 +11,15 @@ module OpenX
       end
 
       def create(user, password)
-        @id = @server.call('ox.logon', user, password)
+        @user = user
+        @password = password
+        @id = @server.call('ox.logon', @user, @password)
+        self
+      end
+
+      def recreate!
+        raise "Unable to refresh Session" unless @user && @password
+        @id = @server.call('ox.logon', @user, @password)
         self
       end
 
