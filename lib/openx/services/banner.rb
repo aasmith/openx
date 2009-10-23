@@ -17,7 +17,7 @@ module OpenX
           session   = self.connection
           server    = XmlrpcClient.new2("#{session.url}")
           if id == :all
-            responses = server.call(find_all(), session.id, *args)
+            responses = server.call(find_all(), session, *args)
             response = responses.first
             return [] unless response
             responses = [response]
@@ -34,7 +34,7 @@ module OpenX
               new(translate(response))
             }
           else
-            response  = server.call(find_one(), session.id, id)
+            response  = server.call(find_one(), session, id)
             new(translate(response))
           end
         end
@@ -72,24 +72,24 @@ module OpenX
       self.find_all = 'ox.getBannerListByCampaignId'
 
       def initialize(params = {})
-        raise ArgumentError unless params[:campaign_id] || params[:campaign]
+        raise ArgumentError.new("Missing campaign_id") unless params[:campaign_id] || params[:campaign]
         params[:campaign_id] ||= params[:campaign].id
         super(params)
       end
 
       def statistics start_on = Date.today, end_on = Date.today
         session = self.class.connection
-        @server.call('ox.bannerDailyStatistics', session.id, self.id, start_on, end_on)
+        @server.call('ox.bannerDailyStatistics', session, self.id, start_on, end_on)
       end
 
       def targeting
         session = self.class.connection
-        @server.call('ox.getBannerTargeting', session.id, self.id)
+        @server.call('ox.getBannerTargeting', session, self.id)
       end
 
       def targeting= targeting
         session = self.class.connection
-        @server.call('ox.setBannerTargeting', session.id, self.id, targeting)
+        @server.call('ox.setBannerTargeting', session, self.id, targeting)
       end
     end
   end

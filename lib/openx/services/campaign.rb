@@ -38,7 +38,7 @@ module OpenX
       EXCLUSIVE = 3
 
       def initialize(params = {})
-        raise ArgumentError unless params[:advertiser_id] || params[:advertiser]
+        raise ArgumentError.new("Missing advertiser_id") unless params[:advertiser_id] || params[:advertiser]
         params[:advertiser_id] ||= params[:advertiser].id
         super(params)
       end

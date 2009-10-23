@@ -26,24 +26,52 @@ module OpenX
         #server.instance_variable_get(:@http).set_debug_output($stderr)
         server
       end
-      protected :init_server
       
       def new2(uri)
-        @uri = uri
-        @server = init_server(uri)
+        server = init_server(uri)
+        new(server, uri)
       end
     end
     
+    def initialize(server, uri)
+      @server = server
+      @uri = uri
+    end
     
     def call(method, *args)
+      if args.first.is_a?(OpenX::Services::Session)
+        session = args.shift()
+        args.unshift(session.id)
+        begin
+          do_call(method, *args)
+        rescue XMLRPC::FaultException => sess_id_err
+          if sess_id_err.message.strip == 'Session ID is invalid'
+            session.recreate!
+            args.shift()
+            args.unshift(session.id)
+            do_call(method, *args)
+          else
+            raise sess_id_err
+          end
+        end
+      else
+        do_call(method, *args)
+      end
+    end
+    
+    def do_call(method, *args)
       begin
         @server.call(method, *args)
       rescue HTTPBroken => httpbe
         if self.class.retry_on_http_error
-          @server = init_server(uri)
+          @server = self.class.init_server(@uri)
           @server.call(method, *args)
+        else
+          raise httpbe
         end
       end
     end
+    private :do_call
+    
   end
 end

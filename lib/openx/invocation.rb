@@ -4,7 +4,7 @@ module OpenX
       #
       # banner = OpenX::Invocation.view("Plumber")
       #
-      # banners = OpenX::Invocation.view("Plumber", :count => 2, :exclude_by_bannerid => true) ;nil
+      # banners = OpenX::Invocation.view("Plumber", :count => 2, :exclude_by_campaignid => true) ;nil
       # banners.each do |banner|
       #   puts "Banner #{banner['bannerid']}"
       # end; nil
