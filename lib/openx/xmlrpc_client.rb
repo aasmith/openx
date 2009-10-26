@@ -15,11 +15,12 @@ module OpenX
     @uri = nil
     @server = nil
     
-    @@retry_on_http_error = true
-    @@timeout = 10 # seconds
-    cattr_accessor :retry_on_http_error, :timeout
+    @retry_on_http_error = true
+    @timeout = 10 # seconds
     
     class << self
+      attr_accessor :retry_on_http_error, :timeout
+      
       def init_server(uri)
         server = XMLRPC::Client.new2(uri)
         server.timeout = self.timeout
