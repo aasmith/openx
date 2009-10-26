@@ -54,6 +54,31 @@ The YAML file lists configuration for each environment.  The gem uses the
 'invocation_url' is only used by the OpenX::Invocation methods to serve 
 advertisements over XML-RPC
 
+== RUBY ON RAILS INTEGRATION
+
+As common deployment scenarios for RoR projects dictates that you manage all
+of your dependent files from within your project, storing your credentials.yml
+file in the default location (as above) will not work. However, this is easily
+fixed.
+
+Create your credentials.yml file in your ./config folder, and populate it with
+the necessary environment settings. It may in fact be more useful to name your
+file something like openx_credentials.yml to be explicit about the content.
+
+Then, add your gem require line to the initialize block of the environment.rb:
+
+  config.gem "touchlocal-openx", 
+    :lib => "openx", :source => "http://gemcutter.org"
+
+You will of course need to install the gem, either manually or via 
+rake gems:install
+
+Finally, create a config/initializers/openx.rb and include the following line:
+
+  OpenX::Services::Base.configuration = 
+    YAML.load_file(File.join(Rails.root, 'config', 'credentials.yml'))[Rails.env]
+
+
 == LICENSE:
 
 (The MIT License)
@@ -62,7 +87,7 @@ Copyright (c) 2008:
 
 * {Aaron Patterson}[http://tenderlovemaking.com]
 * Andy Smith
-* {TouchLocal P/L}[http://www.touchlocal.com]
+* {TouchLocal Plc}[http://www.touchlocal.com]
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
