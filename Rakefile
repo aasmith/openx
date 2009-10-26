@@ -1,15 +1,25 @@
 # -*- ruby -*-
 
 require 'rubygems'
-require 'hoe'
+require 'rake'
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "touchlocal-openx"
+    gemspec.summary = "A Ruby interface to the OpenX XML-RPC API"
+    gemspec.description = "A Ruby interface to the OpenX XML-RPC API"
+    gemspec.email = "info@touchlocal.com"
+    gemspec.homepage = "http://github.com/touchlocal/openx"
+    gemspec.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc"]
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
 
 $: << "lib/"
 require 'openx'
-
-HOE = Hoe.new('openx', OpenX::VERSION) do |p|
-  # p.rubyforge_name = 'ruby-openxx' # if different than lowercase project name
-  p.developer('Aaron Patterson', 'aaron.patterson@gmail.com')
-end
 
 namespace :openx do
   task :clean do
@@ -28,13 +38,3 @@ namespace :openx do
     end
   end
 end
-
-namespace :gem do
-  task :spec do
-    File.open("#{HOE.name}.gemspec", 'w') do |f|
-      f.write(HOE.spec.to_ruby)
-    end
-  end
-end
-
-# vim: syntax=Ruby

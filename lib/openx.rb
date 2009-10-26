@@ -5,5 +5,5 @@ require 'openx/invocation'
 require 'openx/image'
 
 module OpenX
-  VERSION = '1.0.1'
+  VERSION = '1.1.0'
 end
