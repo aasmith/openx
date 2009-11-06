@@ -5,7 +5,15 @@ module OpenX
     class Base
       include Comparable
 
-      CONFIGURATION_YAML = File.join(ENV['HOME'], '.openx', 'credentials.yml')
+      # HOME || HOMEPATH is for Win32 users who do not have HOME set by default
+      #
+      # Configuration can be overridden for Rails at load time by doing this:
+      # OpenX::Services::Base.configuration = 
+      #   YAML.load_file(File.join(Rails.root, 'config', 'credentials.yml'))[Rails.env]
+      # 
+      # Rescue nil is there for Rails sites that are monitored by Monit,
+      # which does not set the environment variables as expected
+      CONFIGURATION_YAML = File.join((ENV['HOME'] || ENV['HOMEPATH']), '.openx', 'credentials.yml') rescue nil
 
       @@connection    = nil
       @@configuration = nil
