@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{touchlocal-openx}
-  s.version = "1.1.0"
+  s.version = "1.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc"]
-  s.date = %q{2009-10-26}
+  s.date = %q{2009-11-06}
   s.description = %q{A Ruby interface to the OpenX XML-RPC API}
   s.email = %q{info@touchlocal.com}
   s.extra_rdoc_files = [
@@ -45,7 +45,8 @@ Gem::Specification.new do |s|
      "test/test_campaign.rb",
      "test/test_publisher.rb",
      "test/test_session.rb",
-     "test/test_zone.rb"
+     "test/test_zone.rb",
+     "touchlocal-openx.gemspec"
   ]
   s.homepage = %q{http://github.com/touchlocal/openx}
   s.rdoc_options = ["--charset=UTF-8"]
