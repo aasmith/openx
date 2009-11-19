@@ -4,3 +4,17 @@
 
   * Birthday!
 
+=== 1.1.0 / 2009-10-26
+
+* 2 major enhancements
+
+  * OpenX API Version 2 Support added
+  * OpenX Invocation API Support added
+
+* 1 minor enhancement
+
+  * Ruby on Rails documentation support added
+
+=== 1.1.1 / 2009-11-06
+
+* Minor bugfix to environment handling for Win32 users
