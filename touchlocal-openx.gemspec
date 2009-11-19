@@ -9,17 +9,17 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc"]
-  s.date = %q{2009-11-06}
+  s.date = %q{2009-11-19}
   s.description = %q{A Ruby interface to the OpenX XML-RPC API}
   s.email = %q{info@touchlocal.com}
   s.extra_rdoc_files = [
-    "README.txt"
+    "README.rdoc"
   ]
   s.files = [
     ".gitignore",
      "History.txt",
      "Manifest.txt",
-     "README.txt",
+     "README.rdoc",
      "Rakefile",
      "VERSION",
      "lib/openx.rb",
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
      "lib/openx/services/session.rb",
      "lib/openx/services/zone.rb",
      "lib/openx/xmlrpc_client.rb",
+     "php/openx-2.8.1-keywords.diff",
      "test/assets/300x250.jpg",
      "test/assets/cat.swf",
      "test/helper.rb",
