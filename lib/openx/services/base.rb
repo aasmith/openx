@@ -12,7 +12,9 @@ module OpenX
       #   YAML.load_file(File.join(Rails.root, 'config', 'credentials.yml'))[Rails.env]
       # 
       # Rescue nil is there for Rails sites that are monitored by Monit,
-      # which does not set the environment variables as expected
+      # which does not set the environment variables as expected.
+      # Note that the configuration can be set explicitly (as above), 
+      # in which case this constant is not used and can safely be nil.
       CONFIGURATION_YAML = File.join((ENV['HOME'] || ENV['HOMEPATH']), '.openx', 'credentials.yml') rescue nil
 
       @@connection    = nil

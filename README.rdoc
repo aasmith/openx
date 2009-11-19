@@ -1,12 +1,13 @@
-= openx
+= OpenX
 
-* http://openx.rubyforge.org
+* http://gemcutter.org/gems/touchlocal-openx
+* http://github.com/touchlocal/openx
 
-== DESCRIPTION:
+== Description
 
 A Ruby interface to the OpenX XML-RPC API.
 
-== SYNOPSIS:
+== Synopsis
 
   OpenX::Services::Base.configuration = {
     'username'  => 'admin',
@@ -26,18 +27,18 @@ A Ruby interface to the OpenX XML-RPC API.
     Publisher.create!(
       :agency       => agency,
       :name         => 'My Test Publisher',
-      :contact_name => 'Aaron Patterson',
-      :email        => 'aaron@tenderlovemaking.com',
+      :contact_name => 'My Contact',
+      :email        => 'agency@example.com',
       :username     => 'user',
       :password     => 'password'
     )
   end
 
-== REQUIREMENTS:
+== Requirements
 
 * ruby
 
-== INSTALL:
+== Install
 
 * sudo gem install openx
 * Update your $HOME/.openx/credentials.yml file.  Here is a sample:
@@ -54,7 +55,7 @@ The YAML file lists configuration for each environment.  The gem uses the
 'invocation_url' is only used by the OpenX::Invocation methods to serve 
 advertisements over XML-RPC
 
-== RUBY ON RAILS INTEGRATION
+== Ruby on Rails Integration
 
 As common deployment scenarios for RoR projects dictates that you manage all
 of your dependent files from within your project, storing your credentials.yml
@@ -73,8 +74,9 @@ Then, add your gem require line to the initialize block of the environment.rb:
 You will of course need to install the gem, either manually or via 
 rake gems:install
 
-Finally, create a config/initializers/openx.rb and include the following line:
+Finally, create a config/initializers/openx.rb and include the following:
 
+  require 'yaml'
   OpenX::Services::Base.configuration = 
     YAML.load_file(File.join(Rails.root, 'config', 'credentials.yml'))[Rails.env]
 
