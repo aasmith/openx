@@ -81,7 +81,35 @@ Finally, create a config/initializers/openx.rb and include the following:
     YAML.load_file(File.join(Rails.root, 'config', 'credentials.yml'))[Rails.env]
 
 
-== LICENSE:
+== Banner Keyword Support
+
+Not all attributes of OpenX objects that can be set in the web interface are 
+accessible via the API. A notable case of this is the ability to access 
+Banner Keywords. While it seems to be a case of "We'll add them as people 
+need them," this process is slower that one might expect; 
+https://developer.openx.org/jira/browse/OX-4779 has been an open ticket since 
+January 2009.
+
+As TouchLocal required the ability to access Banner Keywords, the 
+OpenX::Services::Banner object has the support for this attribute. If the 
+server does not support the attribute, then setting it will have no effect, 
+and it will return nil when retrieving it. To enable support on the server, 
+you will need access to the server source, and the included 
+php/openx-2.8.1-keywords.diff
+
+Copy the openx-2.8.1-keywords.diff file to the root of the OpenX distribution 
+on your server, and execute:
+
+    patch -p0 < openx-2.8.1-keywords.diff
+
+This will patch the relevant OpenX API to allow access to the keyword 
+attribute, meaning that now both your client and server support it. Happy days.
+
+This patch has been tested on OpenX Server versions 2.8.1 and 2.8.2 at the 
+time of writing.
+
+
+== License
 
 (The MIT License)
 

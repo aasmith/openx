@@ -1,0 +1,110 @@
+Index: www/api/v2/xmlrpc/BannerXmlRpcService.php
+===================================================================
+--- www/api/v2/xmlrpc/BannerXmlRpcService.php	(revision 44144)
++++ www/api/v2/xmlrpc/BannerXmlRpcService.php	(working copy)
+@@ -86,7 +86,7 @@
+                 1, array('campaignId', 'bannerName', 'storageType', 'fileName',
+                         'imageURL', 'htmlTemplate', 'width', 'height', 'weight',
+                         'target', 'url', 'bannerText', 'status', 'adserver', 'transparent',
+-                        'capping', 'sessionCapping', 'block', 'comments'),
++                        'capping', 'sessionCapping', 'block', 'comments', 'keyword'),
+                    array('aImage', 'aBackupImage'), $oResponseWithError)) {
+ 
+             return $oResponseWithError;
+@@ -121,7 +121,7 @@
+                 1, array('bannerId', 'campaignId', 'bannerName', 'storageType', 'fileName',
+                         'imageURL', 'htmlTemplate', 'width', 'height', 'weight',
+                         'target', 'url', 'bannerText', 'status', 'adserver', 'transparent',
+-                        'capping', 'sessionCapping', 'block', 'comments'),
++                        'capping', 'sessionCapping', 'block', 'comments', 'keyword'),
+                    array('aImage', 'aBackupImage'), $oResponseWithError)) {
+ 
+             return $oResponseWithError;
+Index: lib/OA/Dll/Banner.php
+===================================================================
+--- lib/OA/Dll/Banner.php	(revision 44144)
++++ lib/OA/Dll/Banner.php	(working copy)
+@@ -203,7 +203,8 @@
+             !$this->checkStructureNotRequiredIntegerField($oBanner, 'capping') ||
+             !$this->checkStructureNotRequiredIntegerField($oBanner, 'sessionCapping') ||
+             !$this->checkStructureNotRequiredIntegerField($oBanner, 'block') ||
+-            !$this->checkStructureNotRequiredStringField($oBanner,  'comments')
++            !$this->checkStructureNotRequiredStringField($oBanner,  'comments') ||
++            !$this->checkStructureNotRequiredStringField($oBanner,  'keyword')
+             ) {
+             return false;
+         }
+Index: lib/OA/Dll/BannerInfo.php
+===================================================================
+--- lib/OA/Dll/BannerInfo.php	(revision 44144)
++++ lib/OA/Dll/BannerInfo.php	(working copy)
+@@ -210,6 +210,13 @@
+     var $comments;
+ 
+     /**
++     * This field provides keywords to be stored.
++     *
++     * @var string $keyword
++     */
++    var $keyword;
++
++    /**
+      * This method sets all default values when adding a new banner.
+      *
+      * @access public
+@@ -251,6 +258,10 @@
+         if (is_null($this->block)) {
+             // Leave null
+         }
++
++        if (is_null($this->keyword)) {
++            // Leave null
++        }
+     }
+ 
+     function encodeImage($aImage)
+@@ -305,6 +316,7 @@
+                     'aImage' => 'custom',
+                     'aBackupImage' => 'custom',
+                     'comments' => 'string',
++                    'keyword' => 'string',
+                 );
+     }
+ }
+Index: lib/xmlrpc/php/BannerInfo.php
+===================================================================
+--- lib/xmlrpc/php/BannerInfo.php	(revision 44144)
++++ lib/xmlrpc/php/BannerInfo.php	(working copy)
+@@ -210,6 +210,13 @@
+     var $comments;
+ 
+     /**
++     * This field provides keywords to be stored.
++     *
++     * @var string $keyword
++     */
++    var $keyword;
++
++    /**
+      * This method sets all default values when adding a new banner.
+      *
+      * @access public
+@@ -251,6 +258,10 @@
+         if (is_null($this->block)) {
+             // Leave null
+         }
++
++        if (is_null($this->keyword)) {
++            // Leave null
++        }
+     }
+ 
+     function encodeImage($aImage)
+@@ -305,6 +316,7 @@
+                     'aImage' => 'custom',
+                     'aBackupImage' => 'custom',
+                     'comments' => 'string',
++                    'keyword' => 'string',
+                 );
+     }
+ }

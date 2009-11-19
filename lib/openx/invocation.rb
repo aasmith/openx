@@ -25,6 +25,7 @@ module OpenX
         
         url = OpenX::Services::Base.configuration['invocation_url']
 
+        # Basic requirement as per /lib/max/Delivery/XML-RPC.php in OpenX
         settings = {:cookies => [], :remote_addr => 'localhost'}
         
         context = [] # used by reference after initial use
