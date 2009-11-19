@@ -40,7 +40,8 @@ A Ruby interface to the OpenX XML-RPC API.
 
 == Install
 
-* sudo gem install openx
+* sudo gem install touchlocal-openx --source "http://gemcutter.org"
+* add "require 'openx'" to your code
 * Update your $HOME/.openx/credentials.yml file.  Here is a sample:
 
     production:
