@@ -43,7 +43,6 @@ A Ruby interface to the OpenX XML-RPC API.
 * sudo gem install openx
 * Update your $HOME/.openx/credentials.yml file.  Here is a sample:
 
-  ---
   production:
     username: admin
     password: admin
