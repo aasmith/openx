@@ -18,3 +18,7 @@
 === 1.1.1 / 2009-11-06
 
 * Minor bugfix to environment handling for Win32 users
+
+=== 1.1.2 / 2009-11-19
+
+* Documentation updates and patch to enable banner support on the OpenX Server
