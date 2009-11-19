@@ -59,7 +59,7 @@ module OpenX
                       :image          => :aImage,
                       :backup_image   => :aBackupImage,
                       # 'keyword' only supported by patched server
-                      # as per https://developer.openx.org/jira/browse/OX-4779
+                      # as per README.rdoc
                       # No averse effect when unsupported by server (returns nil)
                       :keyword        => :keyword
 

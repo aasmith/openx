@@ -86,7 +86,7 @@ Finally, create a config/initializers/openx.rb and include the following:
 Not all attributes of OpenX objects that can be set in the web interface are 
 accessible via the API. A notable case of this is the ability to access 
 Banner Keywords. While it seems to be a case of "We'll add them as people 
-need them," this process is slower that one might expect; 
+need them," this process is slower than one might expect; 
 https://developer.openx.org/jira/browse/OX-4779 has been an open ticket since 
 January 2009.
 
