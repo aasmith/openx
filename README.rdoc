@@ -43,11 +43,11 @@ A Ruby interface to the OpenX XML-RPC API.
 * sudo gem install openx
 * Update your $HOME/.openx/credentials.yml file.  Here is a sample:
 
-  production:
-    username: admin
-    password: admin
-    url: http://www.example.com/www/api/v2/xmlrpc/
-    invocation_url: http://www.example.com/www/delivery/axmlrpc.php
+    production:
+      username: admin
+      password: admin
+      url: http://www.example.com/www/api/v2/xmlrpc/
+      invocation_url: http://www.example.com/www/delivery/axmlrpc.php
 
 The YAML file lists configuration for each environment.  The gem uses the
 'production' environment by default. Trailing slash is required on the 'url'.
