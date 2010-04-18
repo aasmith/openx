@@ -6,12 +6,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "touchlocal-openx"
+    gemspec.name = "jjp-openx"
     gemspec.summary = "A Ruby interface to the OpenX XML-RPC API"
     gemspec.description = "A Ruby interface to the OpenX XML-RPC API"
-    gemspec.email = "info@touchlocal.com"
-    gemspec.homepage = "http://github.com/touchlocal/openx"
-    gemspec.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc"]
+    gemspec.email = "jacobjp@mac.com"
+    gemspec.homepage = "http://github.com/DoppioJP/openx"
+    gemspec.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc", "DoppioJP"]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
