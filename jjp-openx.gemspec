@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{jjp-openx}
-  s.version = "1.1.3"
+  s.version = "1.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc", "DoppioJP"]
   s.date = %q{2010-04-18}
-  s.description = %q{A Ruby interface to the OpenX XML-RPC API}
+  s.description = %q{A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/}
   s.email = %q{jacobjp@mac.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "jjp-openx.gemspec",
      "lib/openx.rb",
      "lib/openx/image.rb",
      "lib/openx/invocation.rb",
@@ -46,14 +47,13 @@ Gem::Specification.new do |s|
      "test/test_campaign.rb",
      "test/test_publisher.rb",
      "test/test_session.rb",
-     "test/test_zone.rb",
-     "touchlocal-openx.gemspec"
+     "test/test_zone.rb"
   ]
   s.homepage = %q{http://github.com/DoppioJP/openx}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{A Ruby interface to the OpenX XML-RPC API}
+  s.summary = %q{A Ruby interface to the OpenX XML-RPC API with more OpenX APIs used}
   s.test_files = [
     "test/helper.rb",
      "test/test_advertiser.rb",

@@ -7,8 +7,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "jjp-openx"
-    gemspec.summary = "A Ruby interface to the OpenX XML-RPC API"
-    gemspec.description = "A Ruby interface to the OpenX XML-RPC API"
+    gemspec.summary = "A Ruby interface to the OpenX XML-RPC API with more OpenX APIs used"
+    gemspec.description = "A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/"
     gemspec.email = "jacobjp@mac.com"
     gemspec.homepage = "http://github.com/DoppioJP/openx"
     gemspec.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc", "DoppioJP"]

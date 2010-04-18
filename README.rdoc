@@ -1,11 +1,11 @@
 = OpenX
 
-* http://gemcutter.org/gems/touchlocal-openx
-* http://github.com/touchlocal/openx
+* http://rubygems.org/gems/jjp-openx
+* http://github.com/DoppioJP/openx
 
 == Description
 
-A Ruby interface to the OpenX XML-RPC API.
+A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/
 
 == Synopsis
 
