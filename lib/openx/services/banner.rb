@@ -77,9 +77,32 @@ module OpenX
         super(params)
       end
 
+      # Alias for daily_statistics method to keep consistency with OpenX API calls
+      # Originally it was call for ox.bannerDailyStatistics so it is kept for compatibility with the previous version
       def statistics start_on = Date.today, end_on = Date.today
+        daily_statistics start_on, end_on
+      end
+      
+      # Returns statistics in Array of Hashes by day, which are: impressions, clicks, requests and revenue.
+      # Each day is represented by XMLRPC::DateTime which has instant variables:
+      # @year, @month, @day, @hour, @min, @sec
+      def daily_statistics start_on = Date.today, end_on = Date.today
         session = self.class.connection
         @server.call('ox.bannerDailyStatistics', session, self.id, start_on, end_on)
+      end
+      
+      # Returns statistics in Array of Hashes by publisher, which are: impression, clicks, requests and revenue.
+      # Also returns publisherName and publisherId
+      def publisher_statistics start_on = Date.today, end_on = Date.today
+        session = self.class.connection
+        @server.call('ox.bannerPublisherStatistics', session, self.id, start_on, end_on)
+      end
+
+      # Returns statistics in Array of Hashes by zone, which are: impression, clicks, requests, conversions and revenue.
+      # Also returns publisherName, publisherId, zoneName, zoneId
+      def zone_statistics start_on = Date.today, end_on = Date.today
+        session = self.class.connection
+        @server.call('ox.bannerZoneStatistics', session, self.id, start_on, end_on)
       end
 
       def targeting
