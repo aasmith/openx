@@ -1,6 +1,10 @@
 module OpenX
   module Services
     class Campaign < Base
+
+      require 'openx/services/statistics'
+      include OpenX::Services::Statistics
+
       # Translate our property names to OpenX property names
       openx_accessor  :name               => :campaignName,
                       :advertiser_id      => :advertiserId,
@@ -27,7 +31,7 @@ module OpenX
       self.find_all = 'ox.getCampaignListByAdvertiserId'
 
       # Revenue types
-      CPM             = 1
+      CPM             = 1 
       CPC             = 2
       CPA             = 3
       MONTHLY_TENANCY = 4
@@ -37,12 +41,14 @@ module OpenX
       HIGH      = 2
       EXCLUSIVE = 3
 
+      # Creates new Campaign for the given Advertiser.id required in params[:advertiser_id] or params[:advertiser]
       def initialize(params = {})
         raise ArgumentError.new("Missing advertiser_id") unless params[:advertiser_id] || params[:advertiser]
         params[:advertiser_id] ||= params[:advertiser].id
         super(params)
       end
 
+      # Return all banners for the Campaign
       def banners
         Banner.find(:all, self.id)
       end

@@ -22,3 +22,46 @@
 === 1.1.2 / 2009-11-19
 
 * Documentation updates and patch to enable banner support on the OpenX Server
+
+=== 1.1.4 / 2010-04-17
+
+* Fork of 1.1.2
+
+  * Added statistic methods for Banner:
+  
+    * renamed statistics method into daily_statistics, left statistics method as an alias for daily_statistics
+    * daily_statistics(start_on = Date.today, end_on = Date.today) - Daily stats for the Banner
+    * publisher_statistics(start_on = Date.today, end_on = Date.today) - Banner stats by Publisher
+    * zone_statistics(start_on = Date.today, end_on = Date.today) - Banner stats by Zone
+
+=== 1.1.5 / 2010-05-18
+
+* Created generic statistics method:
+
+  * get_statistics(service_method, start_on = Date.today, end_on = Date.today, local_time_zone = true) in sepearate module OpenX::Services::Statistics in file statistics.rb
+  * included statistics module in all stats objects: Agency, Advertiser, Campaign, Banner, Publisher, Zone.
+  * all existing statistics methods are now calling get_statistics.
+
+* Added to statistics methods localTZ parameter default to true. This way OpenX will return stats for the period of time with offset according to the local time zone. If that parameter is false it will give numbers for UTC. The localTZ implementation based only on that post http://forum.openx.org/index.php?s=18f1d84f86e32297083f87f8d9eb4fda&showtopic=503433151
+  
+  * statistics
+  * daily_statistics
+  * publisher_statistics
+  * zone_statistics
+  
+* Added statistics methods for other objects as well
+  
+  * Agency
+  * Advertiser
+  * Campaign
+  * Banner
+  * Publisher
+  
+    * daily_statistics
+    * banner_statistics
+  
+  * Zone
+  
+=== 1.1.6 / 2010-05-18
+
+* lib/openx/services/statistic.rb file was missing on github while building gemspec, so the version 1.1.5 is actually broken.

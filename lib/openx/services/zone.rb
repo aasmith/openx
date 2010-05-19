@@ -1,6 +1,10 @@
 module OpenX
   module Services
     class Zone < Base
+
+      require 'openx/services/statistics'
+      include OpenX::Services::Statistics
+
       # Delivery types
       BANNER        = 'delivery-b'
       INTERSTITIAL  = 'delivery-i'

@@ -3,6 +3,10 @@ require 'date'
 module OpenX
   module Services
     class Banner < Base
+
+      require 'openx/services/statistics'
+      include OpenX::Services::Statistics
+
       LOCAL_SQL = 'sql'
       LOCAL_WEB = 'web'
       EXTERNAL  = 'url'
@@ -11,7 +15,7 @@ module OpenX
 
       RUNNING = 0
       PAUSED  = 1
-
+      
       class << self
         def find(id, *args)
           session   = self.connection
@@ -77,32 +81,29 @@ module OpenX
         super(params)
       end
 
-      # Alias for daily_statistics method to keep consistency with OpenX API calls
-      # Originally it was call for ox.bannerDailyStatistics so it is kept for compatibility with the previous version
-      def statistics start_on = Date.today, end_on = Date.today
-        daily_statistics start_on, end_on
+      # Alias for daily_statistics method to keep consistency with OpenX API calls. 
+      # Originally it was call for ox.bannerDailyStatistics so it is kept for compatibility with the previous version of the gem.
+      def statistics start_on = Date.today, end_on = Date.today, local_time_zone = true
+        daily_statistics start_on, end_on, local_time_zone
       end
       
-      # Returns statistics in Array of Hashes by day, which are: impressions, clicks, requests and revenue.
+      # Returns statistics in Array of Hashes by day, which are: impressions, clicks, requests and revenue. 
       # Each day is represented by XMLRPC::DateTime which has instant variables:
       # @year, @month, @day, @hour, @min, @sec
-      def daily_statistics start_on = Date.today, end_on = Date.today
-        session = self.class.connection
-        @server.call('ox.bannerDailyStatistics', session, self.id, start_on, end_on)
+      def daily_statistics start_on = Date.today, end_on = Date.today, local_time_zone = true
+        self.get_statistics('ox.bannerDailyStatistics', start_on, end_on, local_time_zone)
       end
       
       # Returns statistics in Array of Hashes by publisher, which are: impression, clicks, requests and revenue.
       # Also returns publisherName and publisherId
-      def publisher_statistics start_on = Date.today, end_on = Date.today
-        session = self.class.connection
-        @server.call('ox.bannerPublisherStatistics', session, self.id, start_on, end_on)
+      def publisher_statistics start_on = Date.today, end_on = Date.today, local_time_zone = true
+        self.get_statistics('ox.bannerPublisherStatistics', start_on, end_on, local_time_zone)
       end
 
       # Returns statistics in Array of Hashes by zone, which are: impression, clicks, requests, conversions and revenue.
       # Also returns publisherName, publisherId, zoneName, zoneId
-      def zone_statistics start_on = Date.today, end_on = Date.today
-        session = self.class.connection
-        @server.call('ox.bannerZoneStatistics', session, self.id, start_on, end_on)
+      def zone_statistics start_on = Date.today, end_on = Date.today, local_time_zone = true
+        self.get_statistics('ox.bannerZoneStatistics', start_on, end_on, local_time_zone)
       end
 
       def targeting

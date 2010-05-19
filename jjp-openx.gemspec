@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{jjp-openx}
-  s.version = "1.1.4"
+  s.version = "1.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc", "DoppioJP"]
-  s.date = %q{2010-04-18}
-  s.description = %q{A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/}
+  s.date = %q{2010-05-19}
+  s.description = %q{A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/ . It also works with v2 of OpenX API, especially that it now can pass localTZ to the OpenX API which will give back the correct statistics for the local time zone.}
   s.email = %q{jacobjp@mac.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
      "lib/openx/services/campaign.rb",
      "lib/openx/services/publisher.rb",
      "lib/openx/services/session.rb",
+     "lib/openx/services/statistics.rb",
      "lib/openx/services/zone.rb",
      "lib/openx/xmlrpc_client.rb",
      "php/openx-2.8.1-keywords.diff",

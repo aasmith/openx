@@ -1,6 +1,10 @@
 module OpenX
   module Services
     class Advertiser < Base
+
+      require 'openx/services/statistics'
+      include OpenX::Services::Statistics
+
       openx_accessor :name          => :advertiserName,
                      :contact_name  => :contactName,
                      :email         => :emailAddress,

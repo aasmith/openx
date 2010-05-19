@@ -1,6 +1,10 @@
 module OpenX
   module Services
     class Agency < Base
+
+      require 'openx/services/statistics'
+      include OpenX::Services::Statistics
+
       # Translate our property names to OpenX property names
       openx_accessor  :name          => :agencyName,
                       :contact_name  => :contactName,

@@ -1,14 +1,27 @@
 module OpenX
   class Invocation
     class << self
+      # Whatever
+      #   banner = OpenX::Invocation.view("Plumber")
       #
-      # banner = OpenX::Invocation.view("Plumber")
+      #   banners = OpenX::Invocation.view("Plumber", :count => 2, :exclude_by_campaignid => true) ;nil
       #
-      # banners = OpenX::Invocation.view("Plumber", :count => 2, :exclude_by_campaignid => true) ;nil
-      # banners.each do |banner|
-      #   puts "Banner #{banner['bannerid']}"
-      # end; nil
+      #   banners.each do |banner|
+      #     puts "Banner #{banner['bannerid']}"
+      #   end; nil
       #
+      #
+      # Defaults
+      #   :count => 1,
+      #   :campaignid => 0,
+      #   :target => '',
+      #   :source => '',
+      #   :with_text => false,
+      #   :exclusions => [],
+      #   :inclusions => [],
+      #   :exclude_by_campaignid => false,
+      #   :exclude_by_bannerid => false
+      # 
       def view(what, params = {})
         defaults = {
           :count => 1,

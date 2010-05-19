@@ -8,7 +8,7 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "jjp-openx"
     gemspec.summary = "A Ruby interface to the OpenX XML-RPC API with more OpenX APIs used"
-    gemspec.description = "A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/"
+    gemspec.description = "A Ruby interface to the OpenX XML-RPC API. Used touchlocal 1.1.2 version as base for adding more API calls to OpenX API from http://developer.openx.org/api/ . It also works with v2 of OpenX API, especially that it now can pass localTZ to the OpenX API which will give back the correct statistics for the local time zone."
     gemspec.email = "jacobjp@mac.com"
     gemspec.homepage = "http://github.com/DoppioJP/openx"
     gemspec.authors = ["Aaron Patterson", "Andy Smith", "TouchLocal Plc", "DoppioJP"]
