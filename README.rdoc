@@ -68,7 +68,7 @@ file something like openx_credentials.yml to be explicit about the content.
 
 Then, add your gem require line to the initialize block of the environment.rb:
 
-  config.gem "touchlocal-openx", 
+  config.gem "jjp-openx", 
     :lib => "openx", :source => "http://gemcutter.org"
 
 You will of course need to install the gem, either manually or via 
